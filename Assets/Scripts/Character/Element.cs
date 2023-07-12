@@ -9,6 +9,6 @@ public abstract class Element : MonoBehaviour
     public float defence { get; protected set; }
     public float endurance { get; protected set; }
 
-    public abstract void MoveA(float x, float y);
-    public abstract void MoveB(float x, float y);
+    public abstract void MoveA(Transform trans);
+    public abstract void MoveB(Transform trans);
 }

@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class AirBall : Projectile
 {
+    private Character _owner { get; set; }
+    public Character Owner;
+
     public new void Awake()
     {
-        this.Speed = 1.0f;
+        Speed = 10.0f;
         base.Awake();
     }
 

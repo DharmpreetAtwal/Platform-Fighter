@@ -15,14 +15,8 @@ public abstract class Projectile : MonoBehaviour
         }
     }
     private float _speed;
-    public float Speed
-    {
-        get { return this._speed; }
-        protected set
-        {
-            if (value < -1) { this._speed = 0; } else { _speed = value; }
-        }
-    }
+    public float Speed { get; set; }
+
     public SpriteRenderer spriteRen { get; protected set; }
 
     public void Awake()

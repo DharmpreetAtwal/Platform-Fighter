@@ -17,6 +17,7 @@ public abstract class Character : MonoBehaviour
     public SpriteRenderer spriteRen { get; private set; }
     public bool isJumping { get; protected set; }
     protected Element element;
+    public bool isLookingRight = true;
 
     public void Awake()
     {
