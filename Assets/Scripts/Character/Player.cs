@@ -22,7 +22,7 @@ public class Player : Character
             Jump();
         } else if (Input.GetKeyDown(KeyCode.E))
         {
-            element.MoveA();
+            //element.MoveA();
         } 
     }
 
