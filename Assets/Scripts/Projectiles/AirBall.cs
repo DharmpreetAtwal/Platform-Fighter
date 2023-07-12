@@ -6,6 +6,7 @@ public class AirBall : Projectile
 {
     public new void Awake()
     {
+        this.Speed = 1.0f;
         base.Awake();
     }
 
@@ -14,9 +15,9 @@ public class AirBall : Projectile
         throw new System.NotImplementedException();
     }
 
-    //public void Update()
-    //{
-    //    transform.position += new Vector3(speed * Time.deltaTime, 0);
-    //}
+    public void Update()
+    {
+        transform.position += new Vector3(this.Speed * Time.deltaTime, 0);
+    }
 
 }

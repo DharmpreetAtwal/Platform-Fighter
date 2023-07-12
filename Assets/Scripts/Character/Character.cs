@@ -4,13 +4,14 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    public int health
+    private int _health;
+    public int Health
     {
-        get { return health;  }
+        get { return _health;  }
         set
         {
-            if (value > -1) { this.health = value; }
-            else { this.health = 0; }
+            if (value > -1) { this._health = value; }
+            else { this._health = 0; }
         }
     }
     public SpriteRenderer spriteRen { get; private set; }

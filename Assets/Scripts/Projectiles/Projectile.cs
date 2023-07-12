@@ -4,21 +4,23 @@ using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour
 {
-    public float damage
+    private float _damage;
+    public float Damage
     {
-        get { return this.damage; }
+        get { return this._damage; }
         protected set
         {
-            if (value > -1) { damage = value; }
-            else { this.damage = 0; }
+            if (value > -1) { _damage = value; }
+            else { this._damage = 0; }
         }
     }
-    public float speed
+    private float _speed;
+    public float Speed
     {
-        get { return this.speed; }
+        get { return this._speed; }
         protected set
         {
-            if (value < -1) { this.speed = 0; } else { speed = value; }
+            if (value < -1) { this._speed = 0; } else { _speed = value; }
         }
     }
     public SpriteRenderer spriteRen { get; protected set; }
