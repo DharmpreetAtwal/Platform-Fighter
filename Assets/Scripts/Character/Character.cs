@@ -14,12 +14,22 @@ public abstract class Character : MonoBehaviour
         }
     }
     public SpriteRenderer spriteRen { get; private set; }
-    public bool isJumping { get; private set; }
+    public bool isJumping { get; protected set; }
+    protected Element element;
 
-    private void Awake()
+    public void Awake()
     {
         this.spriteRen = gameObject.GetComponent<SpriteRenderer>();
         this.isJumping = false;
+        UpdateSprite();
+    }
+
+    private void UpdateSprite()
+    {
+        if (element.GetType() == typeof(Air))
+        {
+            this.spriteRen.color = Color.white;
+        }
     }
 
     public void ApplyForce(float x, float y)
@@ -28,11 +38,14 @@ public abstract class Character : MonoBehaviour
             new Vector3(x, y), ForceMode2D.Impulse);
     }
 
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Floor"))
+        {
+            this.isJumping = false;
+        }
+    }
+
     public abstract void Jump();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

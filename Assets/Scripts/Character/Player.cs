@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Player : Character
 {
+
+    public new void Awake()
+    {
+        this.element = new Air();
+        base.Awake();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -13,10 +20,12 @@ public class Player : Character
         if (Input.GetKeyDown(KeyCode.W) && !this.isJumping)
         {
             Jump();
-            this.spriteRen.color = Color.red;
-        }
+        } else if (Input.GetKeyDown(KeyCode.E))
+        {
+            element.MoveA();
+        } 
     }
 
-    public override void Jump() { ApplyForce(0, 10); }
+    public override void Jump() { this.isJumping = true; ApplyForce(0, 10); }
 
 }
