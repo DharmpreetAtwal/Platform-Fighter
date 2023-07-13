@@ -4,25 +4,44 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
+    private SpriteRenderer SpriteRen { get; set; }
+
+    public bool IsLookingRight { get; protected set; }
+    public bool IsJumping { get; protected set; }
+    public bool IsCooldownA { get; protected set; }
+    public bool IsCooldownB { get; protected set; }
+
+    public Element element { get; protected set; }
     private int _health;
     public int Health
     {
-        get { return _health;  }
+        get { return _health; }
         set
         {
-            if (value > -1) { this._health = value; }
-            else { this._health = 0; }
+            if (value > -1) { _health = value; }
+            else { _health = 0; }
         }
     }
-    public SpriteRenderer spriteRen { get; private set; }
-    public bool isJumping { get; protected set; }
-    protected Element element;
-    public bool isLookingRight = true;
+    private float _cooldownADuration;
+    public float CooldownADuration
+    {
+        get { return _cooldownADuration; }
+        set { _cooldownADuration = value; }
+    }
+    private float _cooldownBDuration;
+    public float CooldownBDuration
+    {
+        get { return _cooldownBDuration; }
+        set { _cooldownBDuration = value; }
+    }
 
     public void Awake()
     {
-        this.spriteRen = gameObject.GetComponent<SpriteRenderer>();
-        this.isJumping = false;
+        SpriteRen = gameObject.GetComponent<SpriteRenderer>();
+        IsLookingRight = true;
+        IsJumping = false;
+        IsCooldownA = false;
+        IsCooldownB = false;
         UpdateSprite();
     }
 
@@ -30,7 +49,7 @@ public abstract class Character : MonoBehaviour
     {
         if (element.GetType() == typeof(Air))
         {
-            this.spriteRen.color = Color.white;
+            SpriteRen.color = Color.white;
         }
     }
 
@@ -44,7 +63,7 @@ public abstract class Character : MonoBehaviour
     {
         if (collision.collider.CompareTag("Floor"))
         {
-            this.isJumping = false;
+            IsJumping = false;
         }
     }
 

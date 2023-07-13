@@ -6,10 +6,13 @@ public class Air : Element
 {
     public void Awake()
     {
-        speed = 2.0f;
-        attack = 1.0f;
-        defence = 0.5f;
-        endurance = 1.5f;
+        Speed = 2.0f;
+        Attack = 1.0f;
+        Defence = 0.5f;
+        Endurance = 1.5f;
+
+        MoveADelay = 1.0f;
+        MoveBDelay = 1.0f;
     }
 
     public override void MoveA(Transform trans)

@@ -7,21 +7,42 @@ public abstract class Projectile : MonoBehaviour
     private float _damage;
     public float Damage
     {
-        get { return this._damage; }
+        get { return _damage; }
         protected set
         {
             if (value > -1) { _damage = value; }
-            else { this._damage = 0; }
+            else { _damage = 0; }
         }
     }
     private float _speed;
-    public float Speed { get; set; }
+    public float Speed
+    {
+        get { return _speed; }
+        set { _speed = value; }
+    }
+    private float _timeDestroy;
+    public float TimeDestroy
+    {
+        get{ return _timeDestroy; }
+        set { if (value >= 0) { _timeDestroy = value; } }
+    }
 
-    public SpriteRenderer spriteRen { get; protected set; }
+    protected SpriteRenderer SpriteRen { get; private set; }
 
     public void Awake()
     {
-        this.spriteRen = this.gameObject.GetComponent<SpriteRenderer>();
+        SpriteRen = gameObject.GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(WaitDestroy());
+    }
+
+    private IEnumerator WaitDestroy()
+    {
+        yield return new WaitForSeconds(TimeDestroy);
+        Destroy(gameObject);
     }
 
     public abstract void OnCollisionEnter2D(Collision2D collision);

@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class AirBall : Projectile
 {
-    private Character _owner { get; set; }
-    public Character Owner;
+    private Character _owner;
+    public Character Owner
+    {
+        get { return _owner; }
+        set { _owner = value; }
+    }
 
     public new void Awake()
     {
+        Damage = 2.0f;
         Speed = 10.0f;
+        TimeDestroy = 3.0f;
         base.Awake();
     }
 
@@ -20,7 +26,7 @@ public class AirBall : Projectile
 
     public void Update()
     {
-        transform.position += new Vector3(this.Speed * Time.deltaTime, 0);
+        transform.position += new Vector3(Speed * Time.deltaTime, 0);
     }
 
 }

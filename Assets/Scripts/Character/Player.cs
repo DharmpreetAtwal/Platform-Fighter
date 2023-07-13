@@ -7,7 +7,10 @@ public class Player : Character
 
     public new void Awake()
     {
-        this.element = new Air();
+        element = new Air();
+        Health = 100;
+        CooldownADuration = 2.0f;
+        CooldownBDuration = 1.0f;
         base.Awake();
     }
 
@@ -19,27 +22,35 @@ public class Player : Character
 
         if(translateX > 0)
         {
-            this.isLookingRight = true;
+            IsLookingRight = true;
         } else if(translateX < 0)
         {
-            this.isLookingRight = false;
+            IsLookingRight = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && !this.isJumping)
+        if (Input.GetKeyDown(KeyCode.W) && !IsJumping)
         {
             Jump();
-        } else if (Input.GetKeyDown(KeyCode.E))
+        } else if (Input.GetKeyDown(KeyCode.E) && !IsCooldownA)
         {
-            element.MoveA(this.transform);
-        } 
+            element.MoveA(transform);
+            StartCoroutine(StartCooldownA());
+        }
     }
 
-    public override void Jump() { this.isJumping = true; ApplyForce(0, 10); }
+    private IEnumerator StartCooldownA()
+    {
+        IsCooldownA = true;
+        yield return new WaitForSeconds(CooldownADuration);
+        IsCooldownA = false;
+    }
+
+    public override void Jump() { IsJumping = true; ApplyForce(0, 10); }
 
     public int GetDirection()
     {
         int dir = 1;
-        if (!this.isLookingRight)
+        if (!IsLookingRight)
         {
             dir = -1;
         }
