@@ -9,13 +9,14 @@ public class Player : Character
     {
         element = gameObject.AddComponent<Air>();
         Health = 100;
+        Stamina = 100;
         base.Awake();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float translateX = 5 * Time.deltaTime * Input.GetAxis("Horizontal");
+        float translateX = (5 * element.Speed) * Time.deltaTime * Input.GetAxis("Horizontal");
         gameObject.transform.position += new Vector3(translateX, 0);
 
         if(translateX > 0)

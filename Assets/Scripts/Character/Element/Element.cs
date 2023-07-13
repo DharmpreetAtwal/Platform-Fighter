@@ -41,7 +41,18 @@ public abstract class Element : MonoBehaviour
         get { return _cooldownBDuration; }
         set { _cooldownBDuration = value; }
     }
-
+    private float _moveAStaminaCost;
+    public float MoveAStaminaCost
+    {
+        get { return _moveAStaminaCost; }
+        set { if (value > 0) { _moveAStaminaCost = value; } else { _moveAStaminaCost = value; } }
+    }
+    private float _moveBStaminaCost;
+    public float MoveBStaminaCost
+    {
+        get { return _moveBStaminaCost; }
+        set { if (value > 0) { _moveBStaminaCost = value; } else { _moveBStaminaCost = value; } }
+    }
     public abstract void MoveA(Transform trans);
     public abstract void MoveB(Transform trans);
 }

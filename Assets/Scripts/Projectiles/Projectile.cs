@@ -8,7 +8,7 @@ public abstract class Projectile : MonoBehaviour
     public float Damage
     {
         get { return _damage; }
-        protected set
+        set
         {
             if (value > -1) { _damage = value; }
             else { _damage = 0; }

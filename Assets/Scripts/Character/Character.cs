@@ -18,11 +18,16 @@ public abstract class Character : MonoBehaviour
         get { return _health; }
         set
         {
-            if (value > -1) { _health = value; }
+            if (value > 0) { _health = value; }
             else { _health = 0; }
         }
     }
-
+    private float _stamina;
+    public float Stamina
+    {
+        get { return _stamina; }
+        set { if (value > 0) { _stamina = value; } else { _stamina = 0; }}
+    }
     public void Awake()
     {
         SpriteRen = gameObject.GetComponent<SpriteRenderer>();
@@ -31,6 +36,7 @@ public abstract class Character : MonoBehaviour
         IsCooldownA = false;
         IsCooldownB = false;
         UpdateSprite();
+        InvokeRepeating("RecoverStamina", 0.0f, 0.1f);
     }
 
     private void UpdateSprite()
@@ -57,8 +63,16 @@ public abstract class Character : MonoBehaviour
 
     public void TakeDamage(float dmg)
     {
-        _health -= dmg;
-        if(_health == 0) { Destroy(gameObject); }
+        _health -= dmg * element.Defence;
+        if(_health <= 0) { Destroy(gameObject); }
+    }
+
+    public void RecoverStamina()
+    {
+        if(_stamina < 100)
+        {
+            _stamina += 1 * element.Endurance;
+        }
     }
 
     public abstract void Jump();
