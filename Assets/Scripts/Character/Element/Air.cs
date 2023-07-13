@@ -11,8 +11,8 @@ public class Air : Element
         Defence = 0.5f;
         Endurance = 1.5f;
 
-        MoveADelay = 1.0f;
-        MoveBDelay = 1.0f;
+        CooldownADuration = 0.0f;
+        CooldownBDuration = 1.0f;
     }
 
     public override void MoveA(Transform trans)

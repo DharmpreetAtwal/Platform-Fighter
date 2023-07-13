@@ -26,6 +26,12 @@ public abstract class Projectile : MonoBehaviour
         get{ return _timeDestroy; }
         set { if (value >= 0) { _timeDestroy = value; } }
     }
+    private Character _owner;
+    public Character Owner
+    {
+        get { return _owner; }
+        set { _owner = value; }
+    }
 
     protected SpriteRenderer SpriteRen { get; private set; }
 

@@ -7,10 +7,8 @@ public class Player : Character
 
     public new void Awake()
     {
-        element = new Air();
+        element = gameObject.AddComponent<Air>();
         Health = 100;
-        CooldownADuration = 2.0f;
-        CooldownBDuration = 1.0f;
         base.Awake();
     }
 
@@ -41,7 +39,7 @@ public class Player : Character
     private IEnumerator StartCooldownA()
     {
         IsCooldownA = true;
-        yield return new WaitForSeconds(CooldownADuration);
+        yield return new WaitForSeconds(element.CooldownADuration);
         IsCooldownA = false;
     }
 

@@ -12,8 +12,8 @@ public abstract class Character : MonoBehaviour
     public bool IsCooldownB { get; protected set; }
 
     public Element element { get; protected set; }
-    private int _health;
-    public int Health
+    private float _health;
+    public float Health
     {
         get { return _health; }
         set
@@ -21,18 +21,6 @@ public abstract class Character : MonoBehaviour
             if (value > -1) { _health = value; }
             else { _health = 0; }
         }
-    }
-    private float _cooldownADuration;
-    public float CooldownADuration
-    {
-        get { return _cooldownADuration; }
-        set { _cooldownADuration = value; }
-    }
-    private float _cooldownBDuration;
-    public float CooldownBDuration
-    {
-        get { return _cooldownBDuration; }
-        set { _cooldownBDuration = value; }
     }
 
     public void Awake()
@@ -65,6 +53,12 @@ public abstract class Character : MonoBehaviour
         {
             IsJumping = false;
         }
+    }
+
+    public void TakeDamage(float dmg)
+    {
+        _health -= dmg;
+        if(_health == 0) { Destroy(gameObject); }
     }
 
     public abstract void Jump();

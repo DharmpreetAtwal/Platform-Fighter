@@ -29,17 +29,17 @@ public abstract class Element : MonoBehaviour
         set { _endurance = value; }
     }
 
-    private float _moveADelay;
-    public float MoveADelay
+    private float _cooldownADuration;
+    public float CooldownADuration
     {
-        get { return _moveADelay; }
-        set { _moveADelay = value; }
+        get { return _cooldownADuration; }
+        set { _cooldownADuration = value; }
     }
-    private float _moveBDelay;
-    public float MoveBDelay
+    private float _cooldownBDuration;
+    public float CooldownBDuration
     {
-        get { return _moveBDelay; }
-        set { _moveBDelay = value; }
+        get { return _cooldownBDuration; }
+        set { _cooldownBDuration = value; }
     }
 
     public abstract void MoveA(Transform trans);

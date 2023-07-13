@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class AirBall : Projectile
 {
-    private Character _owner;
-    public Character Owner
-    {
-        get { return _owner; }
-        set { _owner = value; }
-    }
 
     public new void Awake()
     {
@@ -21,7 +15,12 @@ public class AirBall : Projectile
 
     public override void OnCollisionEnter2D(Collision2D collision)
     {
-        throw new System.NotImplementedException();
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+            Enemy enemy = collision.collider.gameObject.GetComponent<Enemy>();
+            enemy.TakeDamage(Damage);
+        }
     }
 
     public void Update()
