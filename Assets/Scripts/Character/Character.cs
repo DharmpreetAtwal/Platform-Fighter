@@ -82,6 +82,7 @@ public abstract class Character : MonoBehaviour
     {
         _health -= (dmg / _element.Defence);
         if(_health <= 0) { Destroy(gameObject); }
+        MainUIManager.Instance.UpdateHealthBar(Stamina);
     }
 
     public void RecoverStamina()

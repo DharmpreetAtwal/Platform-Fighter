@@ -37,6 +37,8 @@ public class Player : Character
             Element.MoveB(transform);
             StartCoroutine(StartCooldownB());
         }
+
+        MainUIManager.Instance.UpdateStaminaBar(Stamina);
     }
 
     private IEnumerator StartCooldownA()
