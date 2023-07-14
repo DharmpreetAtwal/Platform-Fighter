@@ -74,9 +74,9 @@ public abstract class Element : MonoBehaviour
             GameObject ball = Instantiate(_ballPrefab,
                 offsetPosition, trans.rotation);
 
-            ball.GetComponent<AirBall>().Speed *= dir;
-            ball.GetComponent<AirBall>().Damage *= Attack;
-            ball.GetComponent<AirBall>().Owner = player;
+            ball.GetComponent<Projectile>().Speed *= dir;
+            ball.GetComponent<Projectile>().Damage *= Attack;
+            ball.GetComponent<Projectile>().Owner = player;
         }
     }
 

@@ -1,8 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirBall : Projectile
+public class WaterBall : Projectile
 {
     private void Awake()
     {
@@ -11,5 +11,4 @@ public class AirBall : Projectile
         float timeDestroy = 3.0f;
         base.Init(dmg, spd, timeDestroy);
     }
-
 }

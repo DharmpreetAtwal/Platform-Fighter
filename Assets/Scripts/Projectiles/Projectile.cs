@@ -55,6 +55,18 @@ public abstract class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public abstract void OnCollisionEnter2D(Collision2D collision);
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+            Enemy enemy = collision.collider.gameObject.GetComponent<Enemy>();
+            enemy.TakeDamage(Damage);
+        }
+    }
 
+    public void Update()
+    {
+        transform.position += new Vector3(Speed * Time.deltaTime, 0);
+    }
 }

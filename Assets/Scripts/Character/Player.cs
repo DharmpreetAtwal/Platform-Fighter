@@ -6,13 +6,15 @@ public class Player : Character
 {
     private void Awake()
     {
-        base.Init(gameObject.AddComponent<Air>(), 100, 100);
+        Element elem = gameObject.GetComponent<Element>();
+
+        base.Init(elem, 100, 100);
     }
 
     // Update is called once per frame
     void Update()
     {
-        float translateX = (5 * element.Speed) * Time.deltaTime * Input.GetAxis("Horizontal");
+        float translateX = (5 * Element.Speed) * Time.deltaTime * Input.GetAxis("Horizontal");
         gameObject.transform.position += new Vector3(translateX, 0);
 
         if(translateX > 0)
@@ -28,7 +30,7 @@ public class Player : Character
             Jump();
         } else if (Input.GetKeyDown(KeyCode.E) && !IsCooldownA)
         {
-            element.MoveA(transform);
+            Element.MoveA(transform);
             StartCoroutine(StartCooldownA());
         }
     }
@@ -36,7 +38,7 @@ public class Player : Character
     private IEnumerator StartCooldownA()
     {
         IsCooldownA = true;
-        yield return new WaitForSeconds(element.CooldownADuration);
+        yield return new WaitForSeconds(Element.CooldownADuration);
         IsCooldownA = false;
     }
 

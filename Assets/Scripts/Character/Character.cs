@@ -11,7 +11,11 @@ public abstract class Character : MonoBehaviour
     public bool IsCooldownA { get; protected set; }
     public bool IsCooldownB { get; protected set; }
 
-    public Element element { get; set; }
+    private Element _element;
+    public Element Element {
+        get { return _element; }
+        set { _element = value; }
+    }
     private float _health;
     public float Health
     {
@@ -42,7 +46,7 @@ public abstract class Character : MonoBehaviour
 
     public void Init(Element elem, float health, float stamina)
     {
-        element = elem;
+        _element = elem;
         _health = health;
         _stamina = stamina;
         Awake();
@@ -50,13 +54,13 @@ public abstract class Character : MonoBehaviour
 
     private void UpdateSprite()
     {
-        if (element.GetType() == typeof(Air))
+        if (_element.GetType() == typeof(Air))
         { SpriteRen.color = Color.white; }
-        else if (element.GetType() == typeof(Earth))
+        else if (_element.GetType() == typeof(Earth))
         { SpriteRen.color = Color.green; }
-        else if (element.GetType() == typeof(Fire))
+        else if (_element.GetType() == typeof(Fire))
         { SpriteRen.color = Color.red; }
-        else if (element.GetType() == typeof(Water))
+        else if (_element.GetType() == typeof(Water))
         { SpriteRen.color = Color.blue; }
     }
 
@@ -76,7 +80,7 @@ public abstract class Character : MonoBehaviour
 
     public void TakeDamage(float dmg)
     {
-        _health -= (dmg / element.Defence);
+        _health -= (dmg / _element.Defence);
         if(_health <= 0) { Destroy(gameObject); }
     }
 
@@ -84,7 +88,7 @@ public abstract class Character : MonoBehaviour
     {
         if(_stamina < 100)
         {
-            _stamina += 1 * element.Endurance;
+            _stamina += 1 * _element.Endurance;
         }
     }
 

@@ -6,7 +6,9 @@ public class Guard : Enemy
 {
     private void Awake()
     {
-        Element elem = gameObject.AddComponent<Air>();
+        //Element elem = gameObject.AddComponent<Air>();
+        Element elem = gameObject.GetComponent<Element>();
+
         float health = 10;
         float stamina = 100;
 
