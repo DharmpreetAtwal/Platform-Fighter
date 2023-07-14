@@ -16,21 +16,34 @@ public abstract class Character : MonoBehaviour
         get { return _element; }
         set { _element = value; }
     }
+    private float _maxHealth;
+    public float MaxHealth
+    {
+        get { return _maxHealth; }
+        set { _maxHealth = value; }
+    }
     private float _health;
     public float Health
     {
         get { return _health; }
         set
         {
-            if (value > 0) { _health = value; }
+            if (value > 0 && value <= _maxHealth) { _health = value; }
+            else if (value > 0 && value > _maxHealth) { _health = _maxHealth; }
             else { _health = 0; }
         }
+    }
+    private float _maxStamina;
+    public float MaxStamina
+    {
+        get { return _maxStamina; }
+        private set { _maxStamina = value; }
     }
     private float _stamina;
     public float Stamina
     {
         get { return _stamina; }
-        set { if (value > 0) { _stamina = value; } else { _stamina = 0; }}
+        set { _stamina = value; }
     }
 
     private void Awake()
@@ -44,10 +57,13 @@ public abstract class Character : MonoBehaviour
         InvokeRepeating(nameof(RecoverStamina), 0.0f, 0.1f);
     }
 
-    public void Init(Element elem, float health, float stamina)
+    public void Init(Element elem, float maxHealth, float health,
+        float maxStam, float stamina)
     {
         _element = elem;
+        _maxHealth = maxHealth;
         _health = health;
+        _maxStamina = maxStam;
         _stamina = stamina;
         Awake();
     }
@@ -78,19 +94,29 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float dmg)
+    public virtual void TakeDamage(float dmg)
     {
         _health -= (dmg / _element.Defence);
         if(_health <= 0) { Destroy(gameObject); }
-        MainUIManager.Instance.UpdateHealthBar(Stamina);
     }
 
     public void RecoverStamina()
     {
-        if(_stamina < 100)
+        if(_stamina < _maxStamina)
         {
             _stamina += 1 * _element.Endurance;
         }
+    }
+
+    public int GetDirection()
+    {
+        int dir = 1;
+        if (!IsLookingRight)
+        {
+            dir = -1;
+        }
+
+        return dir;
     }
 
     public abstract void Jump();

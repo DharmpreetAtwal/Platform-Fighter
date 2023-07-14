@@ -22,16 +22,18 @@ public class MainUIManager : MonoBehaviour
         }
     }
 
-    public void UpdateHealthBar(float health)
+    public void UpdateHealthBar(float h, float maxH)
     {
         var barRectTransform = healthBar.transform as RectTransform;
-        barRectTransform.sizeDelta = new Vector2(health, barRectTransform.sizeDelta.y);
+        barRectTransform.sizeDelta = new Vector2(100 *
+            (h / maxH), barRectTransform.sizeDelta.y);
     }
 
-    public void UpdateStaminaBar(float stamina)
+    public void UpdateStaminaBar(float s, float maxS)
     {
         var barRectTransform = staminaBar.transform as RectTransform;
-        barRectTransform.sizeDelta = new Vector2(stamina, barRectTransform.sizeDelta.y);
+        barRectTransform.sizeDelta = new Vector2(100 * (s / maxS),
+            barRectTransform.sizeDelta.y);
     }
 
 }

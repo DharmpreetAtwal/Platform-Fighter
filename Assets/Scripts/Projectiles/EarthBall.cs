@@ -8,10 +8,8 @@ public class EarthBall : Projectile
     {
         float dmg = 2.0f;
         float spd = 10.0f;
-        float timeDestroy = 3.0f;
+        float timeDestroy = 6.0f;
         float knockb = 1.0f;
         base.Init(dmg, spd, timeDestroy, knockb);
     }
-
-
 }

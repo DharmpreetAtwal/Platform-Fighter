@@ -7,8 +7,17 @@ public class Player : Character
     private void Awake()
     {
         Element elem = gameObject.GetComponent<Element>();
+        float maxHealth = 100;
+        float health = 10;
+        float maxStam = 50;
+        float stamina = 0;
 
-        base.Init(elem, 100, 100);
+        base.Init(elem, maxHealth, health, maxStam, stamina);
+    }
+
+    private void Start()
+    {
+        MainUIManager.Instance.UpdateHealthBar(Health, MaxHealth);
     }
 
     // Update is called once per frame
@@ -37,8 +46,7 @@ public class Player : Character
             Element.MoveB(transform);
             StartCoroutine(StartCooldownB());
         }
-
-        MainUIManager.Instance.UpdateStaminaBar(Stamina);
+        MainUIManager.Instance.UpdateStaminaBar(Stamina, MaxStamina);
     }
 
     private IEnumerator StartCooldownA()
@@ -54,16 +62,13 @@ public class Player : Character
         yield return new WaitForSeconds(Element.CooldownBDuration);
         IsCooldownB = false;
     }
-    public override void Jump() { IsJumping = true; ApplyForce(0, 14); }
 
-    public int GetDirection()
+    public override void Jump() { IsJumping = true; ApplyForce(0, 150); }
+
+    public override void TakeDamage(float dmg)
     {
-        int dir = 1;
-        if (!IsLookingRight)
-        {
-            dir = -1;
-        }
-
-        return dir;
+        base.TakeDamage(dmg);
+        MainUIManager.Instance.UpdateHealthBar(Health, MaxHealth);
     }
+
 }

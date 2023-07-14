@@ -4,9 +4,14 @@ using UnityEngine;
 
 public abstract class Enemy : Character
 {
-    public new void Init(Element elem, float health, float stamina)
+    public new void Init(Element elem, float maxHealth, float health,
+        float maxStam, float stamina)
     {
-        base.Init(elem, health, stamina);
+        base.Init(elem, maxHealth, health, maxStam, stamina);
     }
 
+    public void Shoot()
+    {
+        Element.MoveA(transform);
+    }
 }

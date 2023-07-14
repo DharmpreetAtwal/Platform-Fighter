@@ -6,13 +6,14 @@ public class Guard : Enemy
 {
     private void Awake()
     {
-        //Element elem = gameObject.AddComponent<Air>();
         Element elem = gameObject.GetComponent<Element>();
-
+        float maxHealth = 100;
         float health = 10;
+        float maxStam = 100;
         float stamina = 100;
 
-        base.Init(elem, health, stamina);
+        base.Init(elem, maxHealth, health, maxStam, stamina); ;
+        InvokeRepeating(nameof(Shoot), 0.0f, 2.0f);
     }
 
     public override void Jump()

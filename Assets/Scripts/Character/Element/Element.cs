@@ -92,12 +92,12 @@ public abstract class Element : MonoBehaviour
 
     public void MoveA(Transform trans)
     {
-        Player player = trans.gameObject.GetComponent<Player>();
+        Character shooter = trans.gameObject.GetComponent<Character>();
 
-        if (MoveAStaminaCost <= player.Stamina)
+        if (MoveAStaminaCost <= shooter.Stamina)
         {
-            player.Stamina -= MoveAStaminaCost;
-            int dir = player.GetDirection();
+            shooter.Stamina -= MoveAStaminaCost;
+            int dir = shooter.GetDirection();
 
             Vector3 offsetPosition = trans.position + new Vector3(2 * dir, 0);
             GameObject ball = Instantiate(_ballPrefab,
@@ -105,7 +105,7 @@ public abstract class Element : MonoBehaviour
 
             ball.GetComponent<Projectile>().Speed *= dir;
             ball.GetComponent<Projectile>().Damage *= Attack;
-            ball.GetComponent<Projectile>().Owner = player;
+            ball.GetComponent<Projectile>().Owner = shooter;
             ball.GetComponent<Projectile>().Knockback *= _moveAKnockBack;
         }
     }
