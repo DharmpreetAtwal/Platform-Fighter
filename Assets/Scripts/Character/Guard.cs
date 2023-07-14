@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Guard : Enemy
 {
-
-    // Start is called before the first frame update
-    public new void Awake()
+    private void Awake()
     {
-        element = gameObject.AddComponent<Air>();
-        Health = 10;
-        base.Awake();
+        Element elem = gameObject.AddComponent<Air>();
+        float health = 10;
+        float stamina = 100;
+
+        base.Init(elem, health, stamina);
     }
 
     public override void Jump()

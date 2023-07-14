@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class AirBall : Projectile
 {
-
-    public new void Awake()
+    private void Awake()
     {
-        Damage = 2.0f;
-        Speed = 10.0f;
-        TimeDestroy = 3.0f;
-        base.Awake();
+        float dmg = 2.0f;
+        float spd = 10.0f;
+        float timeDestroy = 3.0f;
+        base.Init(dmg, spd, timeDestroy);
     }
 
     public override void OnCollisionEnter2D(Collision2D collision)

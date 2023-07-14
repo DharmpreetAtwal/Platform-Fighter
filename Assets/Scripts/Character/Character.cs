@@ -28,7 +28,8 @@ public abstract class Character : MonoBehaviour
         get { return _stamina; }
         set { if (value > 0) { _stamina = value; } else { _stamina = 0; }}
     }
-    public void Awake()
+
+    private void Awake()
     {
         SpriteRen = gameObject.GetComponent<SpriteRenderer>();
         IsLookingRight = true;
@@ -36,7 +37,15 @@ public abstract class Character : MonoBehaviour
         IsCooldownA = false;
         IsCooldownB = false;
         UpdateSprite();
-        InvokeRepeating("RecoverStamina", 0.0f, 0.1f);
+        InvokeRepeating(nameof(RecoverStamina), 0.0f, 0.1f);
+    }
+
+    public void Init(Element elem, float health, float stamina)
+    {
+        element = elem;
+        _health = health;
+        _stamina = stamina;
+        Awake();
     }
 
     private void UpdateSprite()
@@ -63,7 +72,7 @@ public abstract class Character : MonoBehaviour
 
     public void TakeDamage(float dmg)
     {
-        _health -= dmg * element.Defence;
+        _health -= (dmg / element.Defence);
         if(_health <= 0) { Destroy(gameObject); }
     }
 

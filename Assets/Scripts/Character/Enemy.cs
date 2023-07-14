@@ -4,10 +4,9 @@ using UnityEngine;
 
 public abstract class Enemy : Character
 {
-    // Start is called before the first frame update
-    public new void Awake()
+    public new void Init(Element elem, float health, float stamina)
     {
-        base.Awake();
+        base.Init(elem, health, stamina);
     }
 
 }

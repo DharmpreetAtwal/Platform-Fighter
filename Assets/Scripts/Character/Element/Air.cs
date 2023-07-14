@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class Air : Element
 {
-    public void Awake()
+    private void Awake()
     {
-        Speed = 4.0f;
-        Attack = 1.0f;
-        Defence = 1.0f;
-        Endurance = 1.0f;
+        float spd = 2.0f;
+        float atk = 5.0f;
+        float def = 5.0f;
+        float end = 10.0f;
 
-        CooldownADuration = 0.0f;
-        CooldownBDuration = 1.0f;
-        MoveAStaminaCost = 20;
-        MoveBStaminaCost = 20;
+        float coolADur = 0.0f;
+        float coolBDur = 1.0f;
+        float moveACost = 20;
+        float moveBCost = 20;
+
+        base.Init(spd, atk, def, end, coolADur, coolBDur, moveACost, moveBCost);
     }
 
     public override void MoveA(Transform trans)

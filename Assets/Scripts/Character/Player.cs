@@ -5,12 +5,9 @@ using UnityEngine;
 public class Player : Character
 {
 
-    public new void Awake()
+    private void Awake()
     {
-        element = gameObject.AddComponent<Air>();
-        Health = 100;
-        Stamina = 100;
-        base.Awake();
+        base.Init(gameObject.AddComponent<Air>(), 100, 100);
     }
 
     // Update is called once per frame
@@ -44,7 +41,7 @@ public class Player : Character
         IsCooldownA = false;
     }
 
-    public override void Jump() { IsJumping = true; ApplyForce(0, 10); }
+    public override void Jump() { IsJumping = true; ApplyForce(0, 14); }
 
     public int GetDirection()
     {

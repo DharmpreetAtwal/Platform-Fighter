@@ -35,9 +35,17 @@ public abstract class Projectile : MonoBehaviour
 
     protected SpriteRenderer SpriteRen { get; private set; }
 
-    public void Awake()
+    private void Awake()
     {
         SpriteRen = gameObject.GetComponent<SpriteRenderer>();
+    }
+
+    public void Init(float dmg, float spd, float timeDestroy)
+    {
+        _damage = dmg;
+        _speed = spd;
+        _timeDestroy = timeDestroy;
+        Awake();
     }
 
     private void Start()
