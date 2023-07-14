@@ -53,13 +53,42 @@ public abstract class Element : MonoBehaviour
         get { return _moveBStaminaCost; }
         set { if (value > 0) { _moveBStaminaCost = value; } else { _moveBStaminaCost = value; } }
     }
-
+    private float _moveAKnockBack;
+    public float MoveAKnockback
+    {
+        get { return _moveAKnockBack; }
+        set { if (value > 0) { _moveAKnockBack = value; } else { _moveAKnockBack = value; } }
+    }
+    private float _moveBKnockBack;
+    public float MoveBKnockback
+    {
+        get { return _moveBKnockBack; }
+        set { if (value > 0) { _moveBKnockBack = value; } else { _moveBKnockBack = value; } }
+    }
     private GameObject _ballPrefab;
     public GameObject BallPrefab
     {
         get { return _ballPrefab; }
         set { _ballPrefab = value; }
     }
+
+    public void Init(float spd, float atk, float def, float end,
+    float coolADur, float coolBDur, float moveACost, float moveBCost,
+    GameObject ballPrefab, float moveAK, float moveBK)
+    {
+        _speed = spd;
+        _attack = atk;
+        _defence = def;
+        _endurance = end;
+        _cooldownADuration = coolADur;
+        _cooldownBDuration = coolBDur;
+        _moveAStaminaCost = moveACost;
+        _moveBStaminaCost = moveBCost;
+        _ballPrefab = ballPrefab;
+        _moveAKnockBack = moveAK;
+        _moveBKnockBack = moveBK;
+    }
+
 
     public void MoveA(Transform trans)
     {
@@ -77,24 +106,27 @@ public abstract class Element : MonoBehaviour
             ball.GetComponent<Projectile>().Speed *= dir;
             ball.GetComponent<Projectile>().Damage *= Attack;
             ball.GetComponent<Projectile>().Owner = player;
+            ball.GetComponent<Projectile>().Knockback *= _moveAKnockBack;
         }
     }
 
-    public abstract void MoveB(Transform trans);
-
-    public void Init(float spd, float atk, float def, float end,
-        float coolADur, float coolBDur, float moveACost, float moveBCost,
-        GameObject ballPrefab)
+    public void MoveB(Transform trans)
     {
-        _speed = spd;
-        _attack = atk;
-        _defence = def;
-        _endurance = end;
-        _cooldownADuration = coolADur;
-        _cooldownBDuration = coolBDur;
-        _moveAStaminaCost = moveACost;
-        _moveBStaminaCost = moveBCost;
-        _ballPrefab = ballPrefab;
-    }
+        Player player = trans.gameObject.GetComponent<Player>();
 
+        if (MoveBStaminaCost <= player.Stamina)
+        {
+            player.Stamina -= MoveBStaminaCost;
+            int dir = player.GetDirection();
+
+            Vector3 offsetPosition = trans.position + new Vector3(2 * dir, 0);
+            GameObject ball = Instantiate(_ballPrefab,
+                offsetPosition, trans.rotation);
+
+            ball.GetComponent<Projectile>().Speed *= dir;
+            ball.GetComponent<Projectile>().Damage *= Attack;
+            ball.GetComponent<Projectile>().Owner = player;
+            ball.GetComponent<Projectile>().Knockback *= _moveBKnockBack;
+        }
+    }
 }

@@ -26,6 +26,12 @@ public abstract class Projectile : MonoBehaviour
         get{ return _timeDestroy; }
         set { if (value >= 0) { _timeDestroy = value; } }
     }
+    private float _knockback;
+    public float Knockback
+    {
+        get { return _knockback; }
+        set { _knockback = value; }
+    }
     private Character _owner;
     public Character Owner
     {
@@ -41,11 +47,12 @@ public abstract class Projectile : MonoBehaviour
         StartCoroutine(WaitDestroy());
     }
 
-    public void Init(float dmg, float spd, float timeDestroy)
+    public void Init(float dmg, float spd, float timeDestroy, float knockb)
     {
         _damage = dmg;
         _speed = spd;
         _timeDestroy = timeDestroy;
+        _knockback = knockb;
         Awake();
     }
 
@@ -59,9 +66,10 @@ public abstract class Projectile : MonoBehaviour
     {
         if (collision.collider.CompareTag("Enemy"))
         {
-            Destroy(gameObject);
             Enemy enemy = collision.collider.gameObject.GetComponent<Enemy>();
             enemy.TakeDamage(Damage);
+            enemy.ApplyForce(_speed * _knockback, 0);
+            Destroy(gameObject);
         }
     }
 

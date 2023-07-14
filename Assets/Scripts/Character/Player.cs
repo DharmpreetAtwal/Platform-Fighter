@@ -32,6 +32,10 @@ public class Player : Character
         {
             Element.MoveA(transform);
             StartCoroutine(StartCooldownA());
+        } else if (Input.GetKeyDown(KeyCode.Q) && !IsCooldownB)
+        {
+            Element.MoveB(transform);
+            StartCoroutine(StartCooldownB());
         }
     }
 
@@ -42,6 +46,12 @@ public class Player : Character
         IsCooldownA = false;
     }
 
+    private IEnumerator StartCooldownB()
+    {
+        IsCooldownB = true;
+        yield return new WaitForSeconds(Element.CooldownBDuration);
+        IsCooldownB = false;
+    }
     public override void Jump() { IsJumping = true; ApplyForce(0, 14); }
 
     public int GetDirection()
