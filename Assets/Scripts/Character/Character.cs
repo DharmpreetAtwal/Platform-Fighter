@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ public abstract class Character : MonoBehaviour
     public bool IsCooldownA { get; protected set; }
     public bool IsCooldownB { get; protected set; }
 
-    public Element element { get; protected set; }
+    public Element element { get; set; }
     private float _health;
     public float Health
     {
@@ -51,9 +51,13 @@ public abstract class Character : MonoBehaviour
     private void UpdateSprite()
     {
         if (element.GetType() == typeof(Air))
-        {
-            SpriteRen.color = Color.white;
-        }
+        { SpriteRen.color = Color.white; }
+        else if (element.GetType() == typeof(Earth))
+        { SpriteRen.color = Color.green; }
+        else if (element.GetType() == typeof(Fire))
+        { SpriteRen.color = Color.red; }
+        else if (element.GetType() == typeof(Water))
+        { SpriteRen.color = Color.blue; }
     }
 
     public void ApplyForce(float x, float y)

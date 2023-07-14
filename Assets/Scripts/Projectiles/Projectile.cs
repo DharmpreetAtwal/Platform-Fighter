@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,6 +38,7 @@ public abstract class Projectile : MonoBehaviour
     private void Awake()
     {
         SpriteRen = gameObject.GetComponent<SpriteRenderer>();
+        StartCoroutine(WaitDestroy());
     }
 
     public void Init(float dmg, float spd, float timeDestroy)
@@ -46,11 +47,6 @@ public abstract class Projectile : MonoBehaviour
         _speed = spd;
         _timeDestroy = timeDestroy;
         Awake();
-    }
-
-    private void Start()
-    {
-        StartCoroutine(WaitDestroy());
     }
 
     private IEnumerator WaitDestroy()

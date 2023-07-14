@@ -54,11 +54,37 @@ public abstract class Element : MonoBehaviour
         set { if (value > 0) { _moveBStaminaCost = value; } else { _moveBStaminaCost = value; } }
     }
 
-    public abstract void MoveA(Transform trans);
+    private GameObject _ballPrefab;
+    public GameObject BallPrefab
+    {
+        get { return _ballPrefab; }
+        set { _ballPrefab = value; }
+    }
+
+    public void MoveA(Transform trans)
+    {
+        Player player = trans.gameObject.GetComponent<Player>();
+
+        if (MoveAStaminaCost <= player.Stamina)
+        {
+            player.Stamina -= MoveAStaminaCost;
+            int dir = player.GetDirection();
+
+            Vector3 offsetPosition = trans.position + new Vector3(2 * dir, 0);
+            GameObject ball = Instantiate(_ballPrefab,
+                offsetPosition, trans.rotation);
+
+            ball.GetComponent<AirBall>().Speed *= dir;
+            ball.GetComponent<AirBall>().Damage *= Attack;
+            ball.GetComponent<AirBall>().Owner = player;
+        }
+    }
+
     public abstract void MoveB(Transform trans);
 
     public void Init(float spd, float atk, float def, float end,
-        float coolADur, float coolBDur, float moveACost, float moveBCost)
+        float coolADur, float coolBDur, float moveACost, float moveBCost,
+        GameObject ballPrefab)
     {
         _speed = spd;
         _attack = atk;
@@ -68,6 +94,7 @@ public abstract class Element : MonoBehaviour
         _cooldownBDuration = coolBDur;
         _moveAStaminaCost = moveACost;
         _moveBStaminaCost = moveBCost;
+        _ballPrefab = ballPrefab;
     }
 
 }

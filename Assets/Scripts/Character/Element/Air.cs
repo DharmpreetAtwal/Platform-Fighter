@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Air : Element
 {
-    private void Awake()
+    private void Start()
     {
         float spd = 2.0f;
         float atk = 5.0f;
@@ -16,26 +16,10 @@ public class Air : Element
         float moveACost = 20;
         float moveBCost = 20;
 
-        base.Init(spd, atk, def, end, coolADur, coolBDur, moveACost, moveBCost);
-    }
+        GameObject pref = GameManager.Instance.airBallPrefab;
 
-    public override void MoveA(Transform trans)
-    {
-        Player player = trans.gameObject.GetComponent<Player>();
-
-        if(MoveAStaminaCost <= player.Stamina)
-        {
-            player.Stamina -= MoveAStaminaCost;
-            int dir = player.GetDirection();
-
-            Vector3 offsetPosition = trans.position + new Vector3(2 * dir, 0);
-            GameObject ball = Instantiate(GameManager.Instance.airBallPrefab,
-                offsetPosition, trans.rotation);
-
-            ball.GetComponent<AirBall>().Speed *= dir;
-            ball.GetComponent<AirBall>().Damage *= Attack;
-            ball.GetComponent<AirBall>().Owner = player;
-        }
+        base.Init(spd, atk, def, end, coolADur, coolBDur,
+            moveACost, moveBCost, pref);
     }
 
     public override void MoveB(Transform trans)

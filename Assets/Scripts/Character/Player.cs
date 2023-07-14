@@ -1,10 +1,9 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Character
 {
-
     private void Awake()
     {
         base.Init(gameObject.AddComponent<Air>(), 100, 100);
