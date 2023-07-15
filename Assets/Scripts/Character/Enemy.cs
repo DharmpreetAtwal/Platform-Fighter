@@ -12,6 +12,9 @@ public abstract class Enemy : Character
 
     public void Shoot()
     {
+        IsLookingRight = true;
+        noneXInput = false;
+        noneYInput = true;
         Element.MoveA(transform);
     }
 }

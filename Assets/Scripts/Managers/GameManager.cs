@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     public GameObject fireBallPrefab;
     public GameObject waterBallPrefab;
 
+    public GameObject airShockwave;
+    public GameObject waterIcicle;
+
     // Awake is called before the first frame update
     void Awake()
     {

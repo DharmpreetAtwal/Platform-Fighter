@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Water : Element
+public class Earth : Element
 {
+    // Awake is called before the first frame update
     void Start()
     {
-        float spd = 1.0f;
-        float atk = 0.75f;
-        float def = 1.5f;
-        float end = 2.0f;
+        float spd = 0.75f;
+        float atk = 1.0f;
+        float def = 2.0f;
+        float end = 1.5f;
 
         float coolADur = 0.0f;
         float coolBDur = 1.0f;
@@ -18,10 +19,14 @@ public class Water : Element
         float moveAK = 1.0f;
         float moveBK = 10.0f;
 
-        GameObject pref = GameManager.Instance.waterBallPrefab;
+        GameObject pref = GameManager.Instance.earthBallPrefab;
 
         base.Init(spd, atk, def, end, coolADur, coolBDur,
             moveACost, moveBCost, pref, moveAK, moveBK);
     }
 
+    public override void MoveShift(Transform trans)
+    {
+        throw new System.NotImplementedException();
+    }
 }

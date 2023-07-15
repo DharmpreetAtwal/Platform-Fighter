@@ -128,9 +128,12 @@ public abstract class Element : MonoBehaviour
 
             Projectile proj = ball.GetComponent<Projectile>();
             proj.Velocity = new Vector2(x * proj.Speed, y * proj.Speed);
-            proj.Damage *= Attack;
+            proj.Damage *= _attack;
             proj.Owner = shooter;
             proj.Knockback *= _moveBKnockBack;
         }
     }
+
+    public abstract void MoveShift(Transform trans);
+
 }

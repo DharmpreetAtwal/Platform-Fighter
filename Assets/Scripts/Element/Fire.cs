@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Earth : Element
+public class Fire : Element
 {
     // Awake is called before the first frame update
     void Start()
     {
-        float spd = 0.75f;
-        float atk = 1.0f;
-        float def = 2.0f;
-        float end = 1.5f;
+        float spd = 1.0f;
+        float atk = 2.0f;
+        float def = 1.5f;
+        float end = 0.75f;
 
         float coolADur = 0.0f;
         float coolBDur = 1.0f;
@@ -19,10 +19,14 @@ public class Earth : Element
         float moveAK = 1.0f;
         float moveBK = 10.0f;
 
-        GameObject pref = GameManager.Instance.earthBallPrefab;
+        GameObject pref = GameManager.Instance.fireBallPrefab;
 
         base.Init(spd, atk, def, end, coolADur, coolBDur,
             moveACost, moveBCost, pref, moveAK, moveBK);
     }
 
+    public override void MoveShift(Transform trans)
+    {
+        throw new System.NotImplementedException();
+    }
 }

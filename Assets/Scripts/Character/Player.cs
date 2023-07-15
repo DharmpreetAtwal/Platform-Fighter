@@ -35,7 +35,10 @@ public class Player : Character
         else if(inputY < 0) { IsLookingUp = false; noneYInput = false; }
         else { noneYInput = true; }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !IsJumping) {  Jump(); }
+        if (Input.GetKeyDown(KeyCode.Space) && !IsJumping)
+        { Jump(); }
+        else if (Input.GetKeyDown(KeyCode.LeftShift))
+        { Element.MoveShift(transform); }
 
         if (Input.GetMouseButtonDown(0) && !IsCooldownA)
         {

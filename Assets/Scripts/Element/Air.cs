@@ -23,4 +23,21 @@ public class Air : Element
         base.Init(spd, atk, def, end, coolADur, coolBDur,
             moveACost, moveBCost, pref, moveAK, moveBK);
     }
+
+    public override void MoveShift(Transform trans)
+    {
+        AirShockwave(trans);
+    }
+
+    private void AirShockwave(Transform trans)
+    {
+        Instantiate(GameManager.Instance.airShockwave, trans.position,
+            trans.rotation);
+
+        Character chr = trans.gameObject.GetComponent<Character>();
+        float x = chr.GetDirectionX();
+        float y = chr.GetDirectionY();
+        chr.ApplyForce(100 * x, 100 * y);
+    }
+
 }
