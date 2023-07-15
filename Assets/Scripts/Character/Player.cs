@@ -8,9 +8,9 @@ public class Player : Character
     {
         Element elem = gameObject.GetComponent<Element>();
         float maxHealth = 100;
-        float health = 10;
-        float maxStam = 50;
-        float stamina = 0;
+        float health = 100;
+        float maxStam = 100;
+        float stamina = 100;
 
         base.Init(elem, maxHealth, health, maxStam, stamina);
     }
@@ -25,27 +25,30 @@ public class Player : Character
     {
         float translateX = (5 * Element.Speed) * Time.deltaTime * Input.GetAxis("Horizontal");
         gameObject.transform.position += new Vector3(translateX, 0);
+        float inputY = Input.GetAxis("Vertical");
 
-        if(translateX > 0)
-        {
-            IsLookingRight = true;
-        } else if(translateX < 0)
-        {
-            IsLookingRight = false;
-        }
+        if (translateX > 0) { IsLookingRight = true; noneXInput = false; }
+        else if(translateX < 0) { IsLookingRight = false; noneXInput = false; }
+        else { noneXInput = true; }
 
-        if (Input.GetKeyDown(KeyCode.W) && !IsJumping)
-        {
-            Jump();
-        } else if (Input.GetKeyDown(KeyCode.E) && !IsCooldownA)
+        if(inputY > 0) { IsLookingUp = true; noneYInput = false; }
+        else if(inputY < 0) { IsLookingUp = false; noneYInput = false; }
+        else { noneYInput = true; }
+
+        if (Input.GetKeyDown(KeyCode.Space) && !IsJumping) {  Jump(); }
+
+        if (Input.GetMouseButtonDown(0) && !IsCooldownA)
         {
             Element.MoveA(transform);
             StartCoroutine(StartCooldownA());
-        } else if (Input.GetKeyDown(KeyCode.Q) && !IsCooldownB)
+        }
+
+        if (Input.GetMouseButtonDown(1) && !IsCooldownB)
         {
             Element.MoveB(transform);
             StartCoroutine(StartCooldownB());
         }
+
         MainUIManager.Instance.UpdateStaminaBar(Stamina, MaxStamina);
     }
 

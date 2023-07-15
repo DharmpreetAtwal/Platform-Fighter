@@ -93,40 +93,44 @@ public abstract class Element : MonoBehaviour
     public void MoveA(Transform trans)
     {
         Character shooter = trans.gameObject.GetComponent<Character>();
+        float x = 2 * shooter.GetDirectionX();
+        float y = 2 * shooter.GetDirectionY();
 
-        if (MoveAStaminaCost <= shooter.Stamina)
+        if (MoveAStaminaCost <= shooter.Stamina && (x != 0 || y != 0))
         {
             shooter.Stamina -= MoveAStaminaCost;
-            int dir = shooter.GetDirection();
 
-            Vector3 offsetPosition = trans.position + new Vector3(2 * dir, 0);
+            Vector3 offsetPosition = trans.position + new Vector3(x, y);
             GameObject ball = Instantiate(_ballPrefab,
                 offsetPosition, trans.rotation);
 
-            ball.GetComponent<Projectile>().Speed *= dir;
-            ball.GetComponent<Projectile>().Damage *= Attack;
-            ball.GetComponent<Projectile>().Owner = shooter;
-            ball.GetComponent<Projectile>().Knockback *= _moveAKnockBack;
+            Projectile proj = ball.GetComponent<Projectile>();
+            proj.Velocity = new Vector2(x * proj.Speed, y * proj.Speed);
+            proj.Damage *= Attack;
+            proj.Owner = shooter;
+            proj.Knockback *= _moveAKnockBack;
         }
     }
 
     public void MoveB(Transform trans)
     {
-        Player player = trans.gameObject.GetComponent<Player>();
+        Character shooter = trans.gameObject.GetComponent<Character>();
+        float x = 2 * shooter.GetDirectionX();
+        float y = 2 * shooter.GetDirectionY();
 
-        if (MoveBStaminaCost <= player.Stamina)
+        if (MoveBStaminaCost <= shooter.Stamina && (x != 0 || y != 0))
         {
-            player.Stamina -= MoveBStaminaCost;
-            int dir = player.GetDirection();
+            shooter.Stamina -= MoveBStaminaCost;
 
-            Vector3 offsetPosition = trans.position + new Vector3(2 * dir, 0);
+            Vector3 offsetPosition = trans.position + new Vector3(x, y);
             GameObject ball = Instantiate(_ballPrefab,
                 offsetPosition, trans.rotation);
 
-            ball.GetComponent<Projectile>().Speed *= dir;
-            ball.GetComponent<Projectile>().Damage *= Attack;
-            ball.GetComponent<Projectile>().Owner = player;
-            ball.GetComponent<Projectile>().Knockback *= _moveBKnockBack;
+            Projectile proj = ball.GetComponent<Projectile>();
+            proj.Velocity = new Vector2(x * proj.Speed, y * proj.Speed);
+            proj.Damage *= Attack;
+            proj.Owner = shooter;
+            proj.Knockback *= _moveBKnockBack;
         }
     }
 }

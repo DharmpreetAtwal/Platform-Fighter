@@ -20,6 +20,12 @@ public abstract class Projectile : MonoBehaviour
         get { return _speed; }
         set { _speed = value; }
     }
+    private Vector2 _velocity;
+    public Vector2 Velocity
+    {
+        get { return _velocity; }
+        set { _velocity = value; }
+    }
     private float _timeDestroy;
     public float TimeDestroy
     {
@@ -44,6 +50,7 @@ public abstract class Projectile : MonoBehaviour
     private void Awake()
     {
         SpriteRen = gameObject.GetComponent<SpriteRenderer>();
+        _velocity = new Vector2(0, 0);
         StartCoroutine(WaitDestroy());
     }
 
@@ -70,13 +77,16 @@ public abstract class Projectile : MonoBehaviour
             Character enemy =
                 collision.collider.gameObject.GetComponent<Character>();
             enemy.TakeDamage(Damage);
-            enemy.ApplyForce(_speed * _knockback, 0);
+            enemy.ApplyForce(_velocity.x * _knockback, _velocity.y * _knockback);
             Destroy(gameObject);
         }
     }
 
     public void Update()
     {
-        transform.position += new Vector3(Speed * Time.deltaTime, 0);
+        float transX = _velocity.x * Time.deltaTime;
+        float transY = _velocity.y * Time.deltaTime;
+
+        transform.position += new Vector3(transX, transY);
     }
 }
