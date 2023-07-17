@@ -69,7 +69,7 @@ public abstract class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Enemy")
             || collision.collider.CompareTag("Player"))
@@ -98,9 +98,12 @@ public abstract class Projectile : MonoBehaviour
         GameObject ball = Instantiate(prefab, offsetPosition, trans.rotation);
 
         Projectile proj = ball.GetComponent<Projectile>();
-        proj.Velocity = new Vector2(x * proj.Speed, y * proj.Speed);
+        proj.Velocity = new Vector2(x * proj._speed, y * proj._speed);
         proj.Damage *= shooter.Element.Attack;
         proj.Owner = shooter;
+
+        float angleRotate = Mathf.Rad2Deg * Mathf.Atan2(y, x);
+        ball.transform.Rotate(new Vector3(0, 0, angleRotate - 90));
 
         return proj;
     }

@@ -4,6 +4,25 @@ using UnityEngine;
 
 public class Fire : Element
 {
+    private float _lightningCooldownDur;
+    public float LightningCooldownDur
+    {
+        get { return _lightningCooldownDur; }
+        private set { _lightningCooldownDur = value; }
+    }
+    private float _lightningStaminaCost;
+    public float LightningStaminaCost
+    {
+        get { return _lightningStaminaCost; }
+        private set { _lightningStaminaCost = value; }
+    }
+    private float _lightningChargeDur;
+    public float LightningChargeDur
+    {
+        get { return _lightningChargeDur; }
+        private set { _lightningChargeDur = value; }
+    }
+
     // Awake is called before the first frame update
     void Start()
     {
@@ -20,6 +39,9 @@ public class Fire : Element
         float moveBK = 10.0f;
 
         GameObject pref = GameManager.Instance.fireBallPrefab;
+        _lightningCooldownDur = 1;
+        _lightningStaminaCost = 1;
+        _lightningChargeDur = 3;
 
         base.Init(spd, atk, def, end, coolADur, coolBDur,
             moveACost, moveBCost, pref, moveAK, moveBK);
@@ -37,6 +59,27 @@ public class Fire : Element
 
     public override void MoveShift(Transform trans, int index)
     {
-        throw new System.NotImplementedException();
+        CooldownSDuration = _lightningCooldownDur;
+        MoveSStaminaCost = _lightningStaminaCost;
+        StartCoroutine(Lightning(trans));
+    }
+
+    private IEnumerator Lightning(Transform trans)
+    {
+        Character shooter = trans.gameObject.GetComponent<Character>();
+        shooter.IsMovementEnabled = false;
+
+        yield return new WaitForSeconds(_lightningChargeDur);
+
+        float x = 2 * shooter.GetDirectionX();
+        float y = 2 * shooter.GetDirectionY();
+
+        if(shooter.Stamina >= _lightningStaminaCost && (x!=0 || y!=0))
+        {
+            shooter.Stamina -= _lightningStaminaCost;
+            Projectile.ShootProjectile(shooter, GameManager.Instance.lightning, x, y);
+        }
+
+        shooter.IsMovementEnabled = true;
     }
 }

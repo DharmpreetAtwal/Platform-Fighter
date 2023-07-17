@@ -66,18 +66,14 @@ public class Water : Element
         for(int i=0; i < 4; i++)
         {
             Character shooter = trans.gameObject.GetComponent<Character>();
-
             float x = 2 * shooter.GetDirectionX();
             float y = 2 * shooter.GetDirectionY();
 
-            if(shooter.Stamina >= _iceFuryStaminaCost )
+            if(shooter.Stamina >= _iceFuryStaminaCost && (x!=0 || y !=0))
             {
                 shooter.Stamina -= _iceFuryStaminaCost;
-
-                GameObject icicle = Projectile.ShootProjectile(shooter,
-                    GameManager.Instance.waterIcicle, x, y).gameObject;
-                float angleRotate = Mathf.Rad2Deg * Mathf.Atan2(y, x);
-                icicle.transform.Rotate(new Vector3(0, 0, angleRotate - 90));
+                Projectile.ShootProjectile(shooter,
+                    GameManager.Instance.waterIcicle, x, y);
 
                 yield return new WaitForSeconds(_iceFuryFireRate);
             }

@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class Earth : Element
 {
+    public float _flingCooldownDur;
+    public float FlingCooldownDur
+    {
+        get { return _flingCooldownDur; }
+        private set { _flingCooldownDur = value; }
+    }
+    public float _flingStaminaCost;
+    public float FlingStaminaCost
+    {
+        get { return _flingStaminaCost; }
+        private set { _flingStaminaCost = value; }
+    }
+
     // Awake is called before the first frame update
     void Start()
     {
@@ -20,6 +33,8 @@ public class Earth : Element
         float moveBK = 10.0f;
 
         GameObject pref = GameManager.Instance.earthBallPrefab;
+        _flingCooldownDur = 4;
+        _flingStaminaCost = 30;
 
         base.Init(spd, atk, def, end, coolADur, coolBDur,
             moveACost, moveBCost, pref, moveAK, moveBK);
@@ -37,6 +52,14 @@ public class Earth : Element
 
     public override void MoveShift(Transform trans, int index)
     {
-        throw new System.NotImplementedException();
+        CooldownSDuration = _flingCooldownDur;
+        MoveSStaminaCost = _flingStaminaCost;
+        Fling(trans);
+    }
+
+    private void Fling(Transform trans)
+    {
+        // If raising platform up, scale +1 = y + (1/2) 
+        // If raising pltform sideways, sclae + 1 = y + cos(angle) / 2
     }
 }

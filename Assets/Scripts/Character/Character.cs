@@ -12,6 +12,7 @@ public abstract class Character : MonoBehaviour
     public bool IsCooldownA { get; protected set; }
     public bool IsCooldownB { get; protected set; }
     public bool IsCooldownS { get; protected set; }
+    public bool IsMovementEnabled { get; set; }
     public bool NoneXInput { get; protected set; }
     public bool NoneYInput { get; protected set; }
 
@@ -60,6 +61,7 @@ public abstract class Character : MonoBehaviour
         IsJumping = false;
         IsCooldownA = false;
         IsCooldownB = false;
+        IsMovementEnabled = true;
         UpdateSprite();
         InvokeRepeating(nameof(RecoverStamina), 0.0f, 0.1f);
     }
@@ -98,6 +100,14 @@ public abstract class Character : MonoBehaviour
         if (collision.collider.CompareTag("Floor"))
         {
             IsJumping = false;
+        }
+    }
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Floor"))
+        {
+            IsJumping = true;
         }
     }
 

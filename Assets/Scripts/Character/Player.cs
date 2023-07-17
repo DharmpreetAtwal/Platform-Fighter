@@ -24,40 +24,43 @@ public class Player : Character
     void Update()
     {
         float translateX = (5 * Element.Speed) * Time.deltaTime * Input.GetAxis("Horizontal");
-        gameObject.transform.position += new Vector3(translateX, 0);
         float inputY = Input.GetAxis("Vertical");
 
         if (translateX > 0) { IsLookingRight = true; NoneXInput = false; }
-        else if(translateX < 0) { IsLookingRight = false; NoneXInput = false; }
+        else if (translateX < 0) { IsLookingRight = false; NoneXInput = false; }
         else { NoneXInput = true; }
 
-        if(inputY > 0) { IsLookingUp = true; NoneYInput = false; }
-        else if(inputY < 0) { IsLookingUp = false; NoneYInput = false; }
+        if (inputY > 0) { IsLookingUp = true; NoneYInput = false; }
+        else if (inputY < 0) { IsLookingUp = false; NoneYInput = false; }
         else { NoneYInput = true; }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !IsJumping)
-        { Jump(); }
-
-
-        if (Input.GetMouseButtonDown(0) && !IsCooldownA)
+        if (IsMovementEnabled)
         {
-            Element.MoveMouseOne(transform, 0);
-            StartCoroutine(StartCooldownA());
-        }
+            gameObject.transform.position += new Vector3(translateX, 0);
 
-        if (Input.GetMouseButtonDown(1) && !IsCooldownB)
-        {
-            Element.MoveMouseTwo(transform, 0);
-            StartCoroutine(StartCooldownB());
-        }
+            if (Input.GetKeyDown(KeyCode.Space) && !IsJumping)
+            { Jump(); }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !IsCooldownS)
-        {
-            Element.MoveShift(transform, 0);
-            StartCoroutine(StartCooldownShift());
-        }
+            if (Input.GetMouseButtonDown(0) && !IsCooldownA)
+            {
+                Element.MoveMouseOne(transform, 0);
+                StartCoroutine(StartCooldownA());
+            }
 
-        MainUIManager.Instance.UpdateStaminaBar(Stamina, MaxStamina);
+            if (Input.GetMouseButtonDown(1) && !IsCooldownB)
+            {
+                Element.MoveMouseTwo(transform, 0);
+                StartCoroutine(StartCooldownB());
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && !IsCooldownS)
+            {
+                Element.MoveShift(transform, 0);
+                StartCoroutine(StartCooldownShift());
+            }
+
+            MainUIManager.Instance.UpdateStaminaBar(Stamina, MaxStamina);
+        }
     }
 
     private IEnumerator StartCooldownA()

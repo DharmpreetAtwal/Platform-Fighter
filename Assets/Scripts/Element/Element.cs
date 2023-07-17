@@ -33,13 +33,13 @@ public abstract class Element : MonoBehaviour
     public float CooldownADuration
     {
         get { return _cooldownADuration; }
-        set { _cooldownADuration = value; }
+        private set { _cooldownADuration = value; }
     }
     private float _cooldownBDuration;
     public float CooldownBDuration
     {
         get { return _cooldownBDuration; }
-        set { _cooldownBDuration = value; }
+        private set { _cooldownBDuration = value; }
     }
     private float _cooldownSDuration;
     public float CooldownSDuration {
@@ -70,20 +70,20 @@ public abstract class Element : MonoBehaviour
     public float MoveAKnockback
     {
         get { return _moveAKnockBack; }
-        set { if (value > 0) { _moveAKnockBack = value; } else { _moveAKnockBack = value; } }
+        private set { if (value > 0) { _moveAKnockBack = value; } else { _moveAKnockBack = value; } }
     }
     private float _moveBKnockBack;
     public float MoveBKnockback
     {
         get { return _moveBKnockBack; }
-        set { if (value > 0) { _moveBKnockBack = value; } else { _moveBKnockBack = value; } }
+        private set { if (value > 0) { _moveBKnockBack = value; } else { _moveBKnockBack = value; } }
     }
 
     private GameObject _ballPrefab;
     public GameObject BallPrefab
     {
         get { return _ballPrefab; }
-        set { _ballPrefab = value; }
+        private set { _ballPrefab = value; }
     }
 
     public void Init(float spd, float atk, float def, float end,

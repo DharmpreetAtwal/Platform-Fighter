@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject airShockwave;
     public GameObject waterIcicle;
+    public GameObject lightning;
 
     // Awake is called before the first frame update
     void Awake()
