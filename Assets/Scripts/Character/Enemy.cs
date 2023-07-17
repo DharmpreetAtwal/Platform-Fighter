@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,8 +13,8 @@ public abstract class Enemy : Character
     public void Shoot()
     {
         IsLookingRight = true;
-        noneXInput = false;
-        noneYInput = true;
+        NoneXInput = false;
+        NoneYInput = true;
         Element.MoveMouseOne(transform, 0);
     }
 }

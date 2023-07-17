@@ -41,18 +41,31 @@ public abstract class Element : MonoBehaviour
         get { return _cooldownBDuration; }
         set { _cooldownBDuration = value; }
     }
+    private float _cooldownSDuration;
+    public float CooldownSDuration {
+        get { return _cooldownSDuration; }
+        protected set { _cooldownSDuration = value; }
+    }
+
     private float _moveAStaminaCost;
     public float MoveAStaminaCost
     {
         get { return _moveAStaminaCost; }
-        set { if (value > 0) { _moveAStaminaCost = value; } else { _moveAStaminaCost = value; } }
+        private set { if (value > 0) { _moveAStaminaCost = value; } else { _moveAStaminaCost = value; } }
     }
     private float _moveBStaminaCost;
     public float MoveBStaminaCost
     {
         get { return _moveBStaminaCost; }
-        set { if (value > 0) { _moveBStaminaCost = value; } else { _moveBStaminaCost = value; } }
+        private set { if (value > 0) { _moveBStaminaCost = value; } else { _moveBStaminaCost = value; } }
     }
+    private float _moveSStaminaCost;
+    public float MoveSStaminaCost
+    {
+        get { return _moveSStaminaCost; }
+        protected set { _moveSStaminaCost = value; }
+    }
+
     private float _moveAKnockBack;
     public float MoveAKnockback
     {
@@ -65,6 +78,7 @@ public abstract class Element : MonoBehaviour
         get { return _moveBKnockBack; }
         set { if (value > 0) { _moveBKnockBack = value; } else { _moveBKnockBack = value; } }
     }
+
     private GameObject _ballPrefab;
     public GameObject BallPrefab
     {
@@ -100,15 +114,7 @@ public abstract class Element : MonoBehaviour
         if (MoveAStaminaCost <= shooter.Stamina && (x != 0 || y != 0))
         {
             shooter.Stamina -= MoveAStaminaCost;
-
-            Vector3 offsetPosition = trans.position + new Vector3(x, y);
-            GameObject ball = Instantiate(_ballPrefab,
-                offsetPosition, trans.rotation);
-
-            Projectile proj = ball.GetComponent<Projectile>();
-            proj.Velocity = new Vector2(x * proj.Speed, y * proj.Speed);
-            proj.Damage *= Attack;
-            proj.Owner = shooter;
+            Projectile proj = Projectile.ShootProjectile(shooter, _ballPrefab, x, y);
             proj.Knockback *= _moveAKnockBack;
         }
     }
@@ -124,15 +130,7 @@ public abstract class Element : MonoBehaviour
         if (_moveBStaminaCost <= shooter.Stamina && (x != 0 || y != 0))
         {
             shooter.Stamina -= MoveBStaminaCost;
-
-            Vector3 offsetPosition = trans.position + new Vector3(x, y);
-            GameObject ball = Instantiate(_ballPrefab,
-                offsetPosition, trans.rotation);
-
-            Projectile proj = ball.GetComponent<Projectile>();
-            proj.Velocity = new Vector2(x * proj.Speed, y * proj.Speed);
-            proj.Damage *= _attack;
-            proj.Owner = shooter;
+            Projectile proj = Projectile.ShootProjectile(shooter, _ballPrefab, x, y);
             proj.Knockback *= _moveBKnockBack;
         }
     }

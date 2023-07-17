@@ -4,6 +4,23 @@ using UnityEngine;
 
 public class Water : Element
 {
+    private float _iceFuryCooldownDur;
+    public float IceFuryCooldownDur
+    {
+        get { return _iceFuryCooldownDur; }
+        private set { _iceFuryCooldownDur = value; }
+    }
+    private float _iceFuryStaminaCost;
+    public float IceFuryStaminaCost {
+        get { return _iceFuryStaminaCost; }
+        private set { _iceFuryStaminaCost = value; }
+    }
+    private float _iceFuryFireRate;
+    public float IceFuryFireRate {
+        get { return _iceFuryFireRate; }
+        private set { _iceFuryFireRate = value; }
+    }
+
     void Start()
     {
         float spd = 1.0f;
@@ -19,6 +36,9 @@ public class Water : Element
         float moveBK = 10.0f;
 
         GameObject pref = GameManager.Instance.waterBallPrefab;
+        _iceFuryCooldownDur = 4.0f;
+        _iceFuryStaminaCost = 10;
+        _iceFuryFireRate = 0.3f;
 
         base.Init(spd, atk, def, end, coolADur, coolBDur,
             moveACost, moveBCost, pref, moveAK, moveBK);
@@ -36,6 +56,8 @@ public class Water : Element
 
     public override void MoveShift(Transform trans, int index)
     {
+        CooldownSDuration = _iceFuryCooldownDur;
+        MoveSStaminaCost = _iceFuryStaminaCost;
         StartCoroutine(IcicleFury(trans));
     }
 
@@ -44,22 +66,22 @@ public class Water : Element
         for(int i=0; i < 4; i++)
         {
             Character shooter = trans.gameObject.GetComponent<Character>();
+
             float x = 2 * shooter.GetDirectionX();
             float y = 2 * shooter.GetDirectionY();
 
-            Vector3 offsetPosition = trans.position + new Vector3(x, y);
-            GameObject icicle = Instantiate(GameManager.Instance.waterIcicle,
-                offsetPosition, trans.rotation);
+            if(shooter.Stamina >= _iceFuryStaminaCost )
+            {
+                shooter.Stamina -= _iceFuryStaminaCost;
 
-            float angleRotate = Mathf.Rad2Deg * Mathf.Atan2(y , x);
-            icicle.transform.Rotate(new Vector3(0, 0, angleRotate - 90));
+                GameObject icicle = Projectile.ShootProjectile(shooter,
+                    GameManager.Instance.waterIcicle, x, y).gameObject;
+                float angleRotate = Mathf.Rad2Deg * Mathf.Atan2(y, x);
+                icicle.transform.Rotate(new Vector3(0, 0, angleRotate - 90));
 
-            Projectile proj = icicle.GetComponent<Projectile>();
-            proj.Velocity = new Vector2(x * proj.Speed, y * proj.Speed);
-            proj.Damage *= Attack;
-            proj.Owner = shooter;
-
-            yield return new WaitForSeconds(0.3f);
+                yield return new WaitForSeconds(_iceFuryFireRate);
+            }
         }
     }
+
 }

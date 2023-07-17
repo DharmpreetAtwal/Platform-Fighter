@@ -27,18 +27,17 @@ public class Player : Character
         gameObject.transform.position += new Vector3(translateX, 0);
         float inputY = Input.GetAxis("Vertical");
 
-        if (translateX > 0) { IsLookingRight = true; noneXInput = false; }
-        else if(translateX < 0) { IsLookingRight = false; noneXInput = false; }
-        else { noneXInput = true; }
+        if (translateX > 0) { IsLookingRight = true; NoneXInput = false; }
+        else if(translateX < 0) { IsLookingRight = false; NoneXInput = false; }
+        else { NoneXInput = true; }
 
-        if(inputY > 0) { IsLookingUp = true; noneYInput = false; }
-        else if(inputY < 0) { IsLookingUp = false; noneYInput = false; }
-        else { noneYInput = true; }
+        if(inputY > 0) { IsLookingUp = true; NoneYInput = false; }
+        else if(inputY < 0) { IsLookingUp = false; NoneYInput = false; }
+        else { NoneYInput = true; }
 
         if (Input.GetKeyDown(KeyCode.Space) && !IsJumping)
         { Jump(); }
-        else if (Input.GetKeyDown(KeyCode.LeftShift))
-        { Element.MoveShift(transform, 0); }
+
 
         if (Input.GetMouseButtonDown(0) && !IsCooldownA)
         {
@@ -50,6 +49,12 @@ public class Player : Character
         {
             Element.MoveMouseTwo(transform, 0);
             StartCoroutine(StartCooldownB());
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !IsCooldownS)
+        {
+            Element.MoveShift(transform, 0);
+            StartCoroutine(StartCooldownShift());
         }
 
         MainUIManager.Instance.UpdateStaminaBar(Stamina, MaxStamina);
@@ -67,6 +72,13 @@ public class Player : Character
         IsCooldownB = true;
         yield return new WaitForSeconds(Element.CooldownBDuration);
         IsCooldownB = false;
+    }
+
+    private IEnumerator StartCooldownShift()
+    {
+        IsCooldownS = true;
+        yield return new WaitForSeconds(Element.CooldownSDuration);
+        IsCooldownS = false;
     }
 
     public override void Jump() { IsJumping = true; ApplyForce(0, 150); }

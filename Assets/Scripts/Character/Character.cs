@@ -11,8 +11,9 @@ public abstract class Character : MonoBehaviour
     public bool IsJumping { get; protected set; }
     public bool IsCooldownA { get; protected set; }
     public bool IsCooldownB { get; protected set; }
-    public bool noneXInput { get; protected set; }
-    public bool noneYInput { get; protected set; }
+    public bool IsCooldownS { get; protected set; }
+    public bool NoneXInput { get; protected set; }
+    public bool NoneYInput { get; protected set; }
 
     private Element _element;
     public Element Element {
@@ -54,8 +55,8 @@ public abstract class Character : MonoBehaviour
         SpriteRen = gameObject.GetComponent<SpriteRenderer>();
         IsLookingRight = true;
         IsLookingUp = false;
-        noneXInput = true;
-        noneYInput = true;
+        NoneXInput = true;
+        NoneYInput = true;
         IsJumping = false;
         IsCooldownA = false;
         IsCooldownB = false;
@@ -116,14 +117,14 @@ public abstract class Character : MonoBehaviour
 
     public int GetDirectionX()
     {
-        if (noneXInput) { return 0; }
+        if (NoneXInput) { return 0; }
         else if (IsLookingRight) { return 1;}
         else {  return -1; }
     }
 
     public int GetDirectionY()
     {
-        if (noneYInput) { return 0; }
+        if (NoneYInput) { return 0; }
         else if (IsLookingUp) { return 1; }
         else { return -1; }
     }

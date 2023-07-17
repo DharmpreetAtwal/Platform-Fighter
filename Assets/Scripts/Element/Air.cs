@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class Air : Element
 {
+    private float _aShockCooldownDur;
+    public float AShockCooldownDur
+    {
+        get { return _aShockCooldownDur; }
+        private set { _aShockCooldownDur = value; }
+    }
+    public float _aShockStaminaCost;
+    public float AShockStaminaCost
+    {
+        get { return _aShockStaminaCost; }
+        private set { _aShockStaminaCost = value; }
+    }
+
     private void Start()
     {
         float spd = 2.0f;
@@ -11,7 +24,7 @@ public class Air : Element
         float def = 0.75f;
         float end = 1.5f;
 
-        float coolADur = 1.0f;
+        float coolADur = 0.0f;
         float coolBDur = 1.0f;
         float moveACost = 20;
         float moveBCost = 20;
@@ -19,6 +32,8 @@ public class Air : Element
         float moveBK = 10.0f;
 
         GameObject pref = GameManager.Instance.airBallPrefab;
+        _aShockCooldownDur = 3.0f;
+        _aShockStaminaCost = 50;
 
         base.Init(spd, atk, def, end, coolADur, coolBDur,
             moveACost, moveBCost, pref, moveAK, moveBK);
@@ -36,11 +51,16 @@ public class Air : Element
 
     public override void MoveShift(Transform trans, int index)
     {
+        CooldownSDuration = _aShockCooldownDur;
+        MoveSStaminaCost = _aShockStaminaCost;
         AirShockwave(trans);
     }
 
     private void AirShockwave(Transform trans)
     {
+        Character shooter = trans.gameObject.GetComponent<Character>();
+        shooter.Stamina -= _aShockStaminaCost;
+
         Instantiate(GameManager.Instance.airShockwave, trans.position,
             trans.rotation);
 

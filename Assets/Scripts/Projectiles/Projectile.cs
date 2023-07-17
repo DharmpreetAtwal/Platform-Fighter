@@ -89,4 +89,19 @@ public abstract class Projectile : MonoBehaviour
 
         transform.position += new Vector3(transX, transY);
     }
+
+    public static Projectile ShootProjectile(Character shooter, GameObject prefab,
+        float x, float y)
+    {
+        Transform trans = shooter.gameObject.transform;
+        Vector3 offsetPosition = trans.position + new Vector3(x, y);
+        GameObject ball = Instantiate(prefab, offsetPosition, trans.rotation);
+
+        Projectile proj = ball.GetComponent<Projectile>();
+        proj.Velocity = new Vector2(x * proj.Speed, y * proj.Speed);
+        proj.Damage *= shooter.Element.Attack;
+        proj.Owner = shooter;
+
+        return proj;
+    }
 }
