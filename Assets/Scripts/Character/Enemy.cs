@@ -15,6 +15,6 @@ public abstract class Enemy : Character
         IsLookingRight = true;
         noneXInput = false;
         noneYInput = true;
-        Element.MoveA(transform);
+        Element.MoveMouseOne(transform, 0);
     }
 }

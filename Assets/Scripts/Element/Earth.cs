@@ -25,7 +25,17 @@ public class Earth : Element
             moveACost, moveBCost, pref, moveAK, moveBK);
     }
 
-    public override void MoveShift(Transform trans)
+    public override void MoveMouseOne(Transform trans, int index)
+    {
+        MoveA(trans);
+    }
+
+    public override void MoveMouseTwo(Transform trans, int index)
+    {
+        MoveB(trans);
+    }
+
+    public override void MoveShift(Transform trans, int index)
     {
         throw new System.NotImplementedException();
     }

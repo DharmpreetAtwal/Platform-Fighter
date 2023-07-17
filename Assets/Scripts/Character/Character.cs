@@ -114,14 +114,14 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public float GetDirectionX()
+    public int GetDirectionX()
     {
         if (noneXInput) { return 0; }
         else if (IsLookingRight) { return 1;}
         else {  return -1; }
     }
 
-    public float GetDirectionY()
+    public int GetDirectionY()
     {
         if (noneYInput) { return 0; }
         else if (IsLookingUp) { return 1; }

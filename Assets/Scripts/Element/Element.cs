@@ -89,8 +89,9 @@ public abstract class Element : MonoBehaviour
         _moveBKnockBack = moveBK;
     }
 
+    public abstract void MoveMouseOne(Transform trans, int index);
 
-    public void MoveA(Transform trans)
+    protected void MoveA(Transform trans)
     {
         Character shooter = trans.gameObject.GetComponent<Character>();
         float x = 2 * shooter.GetDirectionX();
@@ -112,13 +113,15 @@ public abstract class Element : MonoBehaviour
         }
     }
 
-    public void MoveB(Transform trans)
+    public abstract void MoveMouseTwo(Transform trans, int index);
+
+    protected void MoveB(Transform trans)
     {
         Character shooter = trans.gameObject.GetComponent<Character>();
         float x = 2 * shooter.GetDirectionX();
         float y = 2 * shooter.GetDirectionY();
 
-        if (MoveBStaminaCost <= shooter.Stamina && (x != 0 || y != 0))
+        if (_moveBStaminaCost <= shooter.Stamina && (x != 0 || y != 0))
         {
             shooter.Stamina -= MoveBStaminaCost;
 
@@ -134,6 +137,6 @@ public abstract class Element : MonoBehaviour
         }
     }
 
-    public abstract void MoveShift(Transform trans);
+    public abstract void MoveShift(Transform trans, int index);
 
 }

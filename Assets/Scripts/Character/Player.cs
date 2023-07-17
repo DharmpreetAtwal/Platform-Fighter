@@ -38,17 +38,17 @@ public class Player : Character
         if (Input.GetKeyDown(KeyCode.Space) && !IsJumping)
         { Jump(); }
         else if (Input.GetKeyDown(KeyCode.LeftShift))
-        { Element.MoveShift(transform); }
+        { Element.MoveShift(transform, 0); }
 
         if (Input.GetMouseButtonDown(0) && !IsCooldownA)
         {
-            Element.MoveA(transform);
+            Element.MoveMouseOne(transform, 0);
             StartCoroutine(StartCooldownA());
         }
 
         if (Input.GetMouseButtonDown(1) && !IsCooldownB)
         {
-            Element.MoveB(transform);
+            Element.MoveMouseTwo(transform, 0);
             StartCoroutine(StartCooldownB());
         }
 

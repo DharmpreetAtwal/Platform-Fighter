@@ -24,7 +24,17 @@ public class Air : Element
             moveACost, moveBCost, pref, moveAK, moveBK);
     }
 
-    public override void MoveShift(Transform trans)
+    public override void MoveMouseOne(Transform trans, int index)
+    {
+        MoveA(trans);
+    }
+
+    public override void MoveMouseTwo(Transform trans, int index)
+    {
+        MoveB(trans);
+    }
+
+    public override void MoveShift(Transform trans, int index)
     {
         AirShockwave(trans);
     }
@@ -39,5 +49,6 @@ public class Air : Element
         float y = chr.GetDirectionY();
         chr.ApplyForce(100 * x, 100 * y);
     }
+
 
 }

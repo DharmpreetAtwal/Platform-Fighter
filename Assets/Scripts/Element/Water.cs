@@ -24,7 +24,17 @@ public class Water : Element
             moveACost, moveBCost, pref, moveAK, moveBK);
     }
 
-    public override void MoveShift(Transform trans)
+    public override void MoveMouseOne(Transform trans, int index)
+    {
+        MoveA(trans);
+    }
+
+    public override void MoveMouseTwo(Transform trans, int index)
+    {
+        MoveB(trans);
+    }
+
+    public override void MoveShift(Transform trans, int index)
     {
         StartCoroutine(IcicleFury(trans));
     }
@@ -42,8 +52,6 @@ public class Water : Element
                 offsetPosition, trans.rotation);
 
             float angleRotate = Mathf.Rad2Deg * Mathf.Atan2(y , x);
-            //    -1 * Mathf.Rad2Deg * Mathf.Atan(y / x);
-            //if (angleRotate == 0) { angleRotate = -1 * Mathf.Rad2Deg * Mathf.Atan(x / y); }
             icicle.transform.Rotate(new Vector3(0, 0, angleRotate - 90));
 
             Projectile proj = icicle.GetComponent<Projectile>();
