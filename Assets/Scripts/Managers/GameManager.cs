@@ -11,8 +11,9 @@ public class GameManager : MonoBehaviour
     public GameObject waterBallPrefab;
 
     public GameObject airShockwave;
-    public GameObject waterIcicle;
+    public GameObject earthPlatform;
     public GameObject lightning;
+    public GameObject waterIcicle;
 
     // Awake is called before the first frame update
     void Awake()

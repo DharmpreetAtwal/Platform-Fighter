@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class Earth : Element
 {
-    public float _flingCooldownDur;
-    public float FlingCooldownDur
+    private bool _platformEnabled;
+    public bool PlatformEnabled
     {
-        get { return _flingCooldownDur; }
-        private set { _flingCooldownDur = value; }
+        get { return _platformEnabled; }
+        set { _platformEnabled = value; }
     }
-    public float _flingStaminaCost;
-    public float FlingStaminaCost
+
+    public float _platformCooldownDur;
+    public float PlatformCooldownDur
     {
-        get { return _flingStaminaCost; }
-        private set { _flingStaminaCost = value; }
+        get { return _platformCooldownDur; }
+        private set { _platformCooldownDur = value; }
+    }
+    public float _platformStaminaCost;
+    public float PlatformStaminaCost
+    {
+        get { return _platformStaminaCost; }
+        private set { _platformStaminaCost = value; }
     }
 
     // Awake is called before the first frame update
@@ -33,8 +40,8 @@ public class Earth : Element
         float moveBK = 10.0f;
 
         GameObject pref = GameManager.Instance.earthBallPrefab;
-        _flingCooldownDur = 4;
-        _flingStaminaCost = 30;
+        _platformCooldownDur = 4;
+        _platformStaminaCost = 30;
 
         base.Init(spd, atk, def, end, coolADur, coolBDur,
             moveACost, moveBCost, pref, moveAK, moveBK);
@@ -52,14 +59,25 @@ public class Earth : Element
 
     public override void MoveShift(Transform trans, int index)
     {
-        CooldownSDuration = _flingCooldownDur;
-        MoveSStaminaCost = _flingStaminaCost;
-        Fling(trans);
+        CooldownSDuration = _platformCooldownDur;
+        MoveSStaminaCost = _platformStaminaCost;
+        Platform(trans);
     }
 
-    private void Fling(Transform trans)
+    private void Platform(Transform trans)
     {
-        // If raising platform up, scale +1 = y + (1/2) 
-        // If raising pltform sideways, sclae + 1 = y + cos(angle) / 2
+        if (_platformEnabled)
+        {
+            Character shooter = trans.gameObject.GetComponent<Character>();
+            float x = 2 * shooter.GetDirectionX();
+            float y = 2 * shooter.GetDirectionY();
+
+            if (shooter.Stamina >= _platformStaminaCost)
+            {
+                Vector3 pos = trans.position + new Vector3(0, -3); ;
+                Instantiate(GameManager.Instance.earthPlatform, pos,
+                    trans.rotation);
+            }
+        }
     }
 }

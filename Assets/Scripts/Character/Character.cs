@@ -103,13 +103,13 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Floor"))
-        {
-            IsJumping = true;
-        }
-    }
+    //public void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if (collision.collider.CompareTag("Floor"))
+    //    {
+    //        IsJumping = true;
+    //    }
+    //}
 
     public virtual void TakeDamage(float dmg)
     {
