@@ -28,12 +28,12 @@ public class Water : Element
         float def = 1.5f;
         float end = 2.0f;
 
-        float coolADur = 0.0f;
+        float coolADur = 0.25f;
         float coolBDur = 1.0f;
         float moveACost = 20;
         float moveBCost = 20;
-        float moveAK = 1.0f;
-        float moveBK = 10.0f;
+        float moveAK = 10.0f;
+        float moveBK = 100.0f;
 
         GameObject pref = GameManager.Instance.waterBallPrefab;
         _iceFuryCooldownDur = 4.0f;
@@ -44,13 +44,15 @@ public class Water : Element
             moveACost, moveBCost, pref, moveAK, moveBK);
     }
 
-    public override void MoveMouseOne(Transform trans, int index)
+    public override IEnumerator MoveMouseOne(Transform trans, int index)
     {
+        yield return new WaitForSeconds(0.12f);
         MoveA(trans);
     }
 
-    public override void MoveMouseTwo(Transform trans, int index)
+    public override IEnumerator MoveMouseTwo(Transform trans, int index)
     {
+        yield return new WaitForSeconds(0.12f);
         MoveB(trans);
     }
 

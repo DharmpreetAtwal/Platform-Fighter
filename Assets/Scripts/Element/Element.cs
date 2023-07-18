@@ -103,7 +103,7 @@ public abstract class Element : MonoBehaviour
         _moveBKnockBack = moveBK;
     }
 
-    public abstract void MoveMouseOne(Transform trans, int index);
+    public abstract IEnumerator MoveMouseOne(Transform trans, int index);
 
     protected void MoveA(Transform trans)
     {
@@ -116,10 +116,11 @@ public abstract class Element : MonoBehaviour
             shooter.Stamina -= MoveAStaminaCost;
             Projectile proj = Projectile.ShootProjectile(shooter, _ballPrefab, x, y);
             proj.Knockback *= _moveAKnockBack;
+            shooter.ApplyForce(-x * 100, -y * 100);
         }
     }
 
-    public abstract void MoveMouseTwo(Transform trans, int index);
+    public abstract IEnumerator MoveMouseTwo(Transform trans, int index);
 
     protected void MoveB(Transform trans)
     {
@@ -132,6 +133,7 @@ public abstract class Element : MonoBehaviour
             shooter.Stamina -= MoveBStaminaCost;
             Projectile proj = Projectile.ShootProjectile(shooter, _ballPrefab, x, y);
             proj.Knockback *= _moveBKnockBack;
+            shooter.ApplyForce(-x * 100, -y * 100);
         }
     }
 

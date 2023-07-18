@@ -17,4 +17,5 @@ public abstract class Enemy : Character
         NoneYInput = true;
         Element.MoveMouseOne(transform, 0);
     }
+
 }

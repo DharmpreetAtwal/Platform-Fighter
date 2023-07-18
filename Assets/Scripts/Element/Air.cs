@@ -24,12 +24,12 @@ public class Air : Element
         float def = 0.75f;
         float end = 1.5f;
 
-        float coolADur = 0.0f;
+        float coolADur = 0.25f;
         float coolBDur = 1.0f;
         float moveACost = 20;
         float moveBCost = 20;
-        float moveAK = 1.0f;
-        float moveBK = 10.0f;
+        float moveAK = 10.0f;
+        float moveBK = 100.0f;
 
         GameObject pref = GameManager.Instance.airBallPrefab;
         _aShockCooldownDur = 3.0f;
@@ -39,13 +39,15 @@ public class Air : Element
             moveACost, moveBCost, pref, moveAK, moveBK);
     }
 
-    public override void MoveMouseOne(Transform trans, int index)
+    public override IEnumerator MoveMouseOne(Transform trans, int index)
     {
+        yield return new WaitForSeconds(0.18f);
         MoveA(trans);
     }
 
-    public override void MoveMouseTwo(Transform trans, int index)
+    public override IEnumerator MoveMouseTwo(Transform trans, int index)
     {
+        yield return new WaitForSeconds(0.12f);
         MoveB(trans);
     }
 

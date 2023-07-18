@@ -77,7 +77,7 @@ public abstract class Character : MonoBehaviour
         Awake();
     }
 
-    private void UpdateSprite()
+    protected void UpdateSprite()
     {
         if (_element.GetType() == typeof(Air))
         { SpriteRen.color = Color.white; }
@@ -92,7 +92,7 @@ public abstract class Character : MonoBehaviour
     public void ApplyForce(float x, float y)
     {
         gameObject.GetComponent<Rigidbody2D>().AddForce(
-            new Vector3(x, y), ForceMode2D.Impulse);
+            new Vector3(x, y), ForceMode2D.Force);
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -123,6 +123,27 @@ public abstract class Character : MonoBehaviour
         {
             _stamina += 1 * _element.Endurance;
         }
+    }
+
+    protected IEnumerator StartCooldownA()
+    {
+        IsCooldownA = true;
+        yield return new WaitForSeconds(Element.CooldownADuration);
+        IsCooldownA = false;
+    }
+
+    protected IEnumerator StartCooldownB()
+    {
+        IsCooldownB = true;
+        yield return new WaitForSeconds(Element.CooldownBDuration);
+        IsCooldownB = false;
+    }
+
+    protected IEnumerator StartCooldownShift()
+    {
+        IsCooldownS = true;
+        yield return new WaitForSeconds(Element.CooldownSDuration);
+        IsCooldownS = false;
     }
 
     public int GetDirectionX()

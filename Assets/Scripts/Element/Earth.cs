@@ -32,28 +32,30 @@ public class Earth : Element
         float def = 2.0f;
         float end = 1.5f;
 
-        float coolADur = 0.0f;
+        float coolADur = 0.25f;
         float coolBDur = 1.0f;
         float moveACost = 20;
         float moveBCost = 20;
-        float moveAK = 1.0f;
-        float moveBK = 10.0f;
+        float moveAK = 10.0f;
+        float moveBK = 100.0f;
 
         GameObject pref = GameManager.Instance.earthBallPrefab;
         _platformCooldownDur = 4;
-        _platformStaminaCost = 30;
+        _platformStaminaCost = 50;
 
         base.Init(spd, atk, def, end, coolADur, coolBDur,
             moveACost, moveBCost, pref, moveAK, moveBK);
     }
 
-    public override void MoveMouseOne(Transform trans, int index)
+    public override IEnumerator MoveMouseOne(Transform trans, int index)
     {
+        yield return new WaitForSeconds(0.12f);
         MoveA(trans);
     }
 
-    public override void MoveMouseTwo(Transform trans, int index)
+    public override IEnumerator MoveMouseTwo(Transform trans, int index)
     {
+        yield return new WaitForSeconds(0.12f);
         MoveB(trans);
     }
 
@@ -74,7 +76,8 @@ public class Earth : Element
 
             if (shooter.Stamina >= _platformStaminaCost)
             {
-                Vector3 pos = trans.position + new Vector3(0, -3); ;
+                shooter.Stamina -= _platformStaminaCost;
+                Vector3 pos = trans.position + new Vector3(0, -1.0f); ;
                 Instantiate(GameManager.Instance.earthPlatform, pos,
                     trans.rotation);
             }

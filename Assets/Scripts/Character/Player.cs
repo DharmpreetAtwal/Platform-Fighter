@@ -43,13 +43,13 @@ public class Player : Character
 
             if (Input.GetMouseButtonDown(0) && !IsCooldownA)
             {
-                Element.MoveMouseOne(transform, 0);
+                StartCoroutine(Element.MoveMouseOne(transform, 0));
                 StartCoroutine(StartCooldownA());
             }
 
             if (Input.GetMouseButtonDown(1) && !IsCooldownB)
             {
-                Element.MoveMouseTwo(transform, 0);
+                StartCoroutine(Element.MoveMouseTwo(transform, 0));
                 StartCoroutine(StartCooldownB());
             }
 
@@ -59,37 +59,40 @@ public class Player : Character
                 StartCoroutine(StartCooldownShift());
             }
 
+            if (Input.GetKeyDown(KeyCode.E))
+            { ChangeElement(); UpdateSprite(); }
+
             MainUIManager.Instance.UpdateStaminaBar(Stamina, MaxStamina);
         }
     }
 
-    private IEnumerator StartCooldownA()
-    {
-        IsCooldownA = true;
-        yield return new WaitForSeconds(Element.CooldownADuration);
-        IsCooldownA = false;
-    }
-
-    private IEnumerator StartCooldownB()
-    {
-        IsCooldownB = true;
-        yield return new WaitForSeconds(Element.CooldownBDuration);
-        IsCooldownB = false;
-    }
-
-    private IEnumerator StartCooldownShift()
-    {
-        IsCooldownS = true;
-        yield return new WaitForSeconds(Element.CooldownSDuration);
-        IsCooldownS = false;
-    }
-
-    public override void Jump() { IsJumping = true; ApplyForce(0, 150); }
+    public override void Jump() { IsJumping = true; ApplyForce(0, 1000); }
 
     public override void TakeDamage(float dmg)
     {
         base.TakeDamage(dmg);
         MainUIManager.Instance.UpdateHealthBar(Health, MaxHealth);
+    }
+
+    private void ChangeElement()
+    {
+        Element elm = gameObject.GetComponent<Element>();
+
+        if (typeof(Air) == elm.GetType())
+        {
+            Element = gameObject.AddComponent<Earth>();
+        } else if (typeof(Earth) == elm.GetType())
+        {
+            Element = gameObject.AddComponent<Fire>();
+        } else if (typeof(Fire) == elm.GetType())
+        {
+            Element = gameObject.AddComponent<Water>();
+        } else if (typeof(Water) == elm.GetType())
+        {
+            Element = gameObject.AddComponent<Air>();
+        }
+
+        Destroy(elm);
     }
 
 }
