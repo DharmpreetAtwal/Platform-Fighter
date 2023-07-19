@@ -15,7 +15,7 @@ public abstract class Enemy : Character
         IsLookingRight = true;
         NoneXInput = false;
         NoneYInput = true;
-        Element.MoveMouseOne(transform, 0);
+        StartCoroutine(Element.MoveMouseOne(transform, 0));
     }
 
 }

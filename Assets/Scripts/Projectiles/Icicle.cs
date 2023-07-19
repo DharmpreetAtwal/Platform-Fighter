@@ -14,4 +14,20 @@ public class Icicle : Projectile
         base.Init(dmg, spd, timeDestroy, knockb);
     }
 
+    public override void OnCollisionEnter2D(Collision2D collision)
+    {
+        Character enemy = collision.collider.gameObject.GetComponent<Character>();
+        Projectile proj = collision.collider.gameObject.GetComponent<Projectile>();
+        if (enemy != null)
+        {
+            if (enemy.Element.GetType() == typeof(Fire) ||
+                enemy.Element.GetType() == typeof(Earth))
+            { Damage *= 2.0f; }
+
+            enemy.TakeDamage(Damage);
+            enemy.ApplyForce(Velocity.x * Knockback, Velocity.y * Knockback);
+            Destroy(gameObject);
+        }
+    }
+
 }

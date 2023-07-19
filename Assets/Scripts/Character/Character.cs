@@ -8,7 +8,7 @@ public abstract class Character : MonoBehaviour
 
     public bool IsLookingRight { get; protected set; }
     public bool IsLookingUp { get; protected set; }
-    public bool IsJumping { get; protected set; }
+    public bool IsJumping { get; set; }
     public bool IsCooldownA { get; protected set; }
     public bool IsCooldownB { get; protected set; }
     public bool IsCooldownS { get; protected set; }
@@ -95,6 +95,12 @@ public abstract class Character : MonoBehaviour
             new Vector3(x, y), ForceMode2D.Force);
     }
 
+    public void ApplyImpulse(float x, float y)
+    {
+        gameObject.GetComponent<Rigidbody2D>().AddForce(
+            new Vector3(x, y), ForceMode2D.Impulse);
+    }
+
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Floor"))
@@ -102,14 +108,6 @@ public abstract class Character : MonoBehaviour
             IsJumping = false;
         }
     }
-
-    //public void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    if (collision.collider.CompareTag("Floor"))
-    //    {
-    //        IsJumping = true;
-    //    }
-    //}
 
     public virtual void TakeDamage(float dmg)
     {

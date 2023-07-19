@@ -41,13 +41,17 @@ public class Air : Element
 
     public override IEnumerator MoveMouseOne(Transform trans, int index)
     {
-        yield return new WaitForSeconds(0.18f);
+        trans.gameObject.GetComponent<Character>().IsMovementEnabled = false;
+        yield return new WaitForSeconds(0.12f);
+        trans.gameObject.GetComponent<Character>().IsMovementEnabled = true;
         MoveA(trans);
     }
 
     public override IEnumerator MoveMouseTwo(Transform trans, int index)
     {
+        trans.gameObject.GetComponent<Character>().IsMovementEnabled = false;
         yield return new WaitForSeconds(0.12f);
+        trans.gameObject.GetComponent<Character>().IsMovementEnabled = true;
         MoveB(trans);
     }
 

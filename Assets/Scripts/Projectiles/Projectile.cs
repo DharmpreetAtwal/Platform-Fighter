@@ -71,11 +71,11 @@ public abstract class Projectile : MonoBehaviour
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Enemy")
-            || collision.collider.CompareTag("Player"))
+        Character enemy = collision.collider.gameObject.GetComponent<Character>();
+        Projectile proj = collision.collider.gameObject.GetComponent<Projectile>();
+        if (enemy != null)
         {
-            Character enemy =
-                collision.collider.gameObject.GetComponent<Character>();
+            collision.collider.gameObject.GetComponent<Character>();
             enemy.TakeDamage(Damage);
             enemy.ApplyForce(_velocity.x * _knockback, _velocity.y * _knockback);
             Destroy(gameObject);

@@ -26,11 +26,15 @@ public class Fire : Element
     // Awake is called before the first frame update
     void Start()
     {
-        float spd = 1.0f;
-        float atk = 2.0f;
-        float def = 1.5f;
-        float end = 0.75f;
+        //float spd = 1.0f;
+        //float atk = 2.0f;
+        //float def = 1.5f;
+        //float end = 0.75f;
 
+        float spd = 2.0f;
+        float atk = 1.0f;
+        float def = 0.75f;
+        float end = 1.5f;
         float coolADur = 0.25f;
         float coolBDur = 1.0f;
         float moveACost = 20;

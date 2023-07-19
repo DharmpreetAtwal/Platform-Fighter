@@ -23,11 +23,15 @@ public class Water : Element
 
     void Start()
     {
-        float spd = 1.0f;
-        float atk = 0.75f;
-        float def = 1.5f;
-        float end = 2.0f;
+        //float spd = 1.0f;
+        //float atk = 0.75f;
+        //float def = 1.5f;
+        //float end = 2.0f;
 
+        float spd = 2.0f;
+        float atk = 1.0f;
+        float def = 0.75f;
+        float end = 1.5f;
         float coolADur = 0.25f;
         float coolBDur = 1.0f;
         float moveACost = 20;

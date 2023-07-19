@@ -36,6 +36,8 @@ public class Player : Character
 
         if (IsMovementEnabled)
         {
+            // Apply force along x?
+            //ApplyForce(translateX * 5, 0);
             gameObject.transform.position += new Vector3(translateX, 0);
 
             if (Input.GetKeyDown(KeyCode.Space) && !IsJumping)
@@ -66,7 +68,7 @@ public class Player : Character
         }
     }
 
-    public override void Jump() { IsJumping = true; ApplyForce(0, 1000); }
+    public override void Jump() { IsJumping = true; ApplyForce(0, 600); }
 
     public override void TakeDamage(float dmg)
     {

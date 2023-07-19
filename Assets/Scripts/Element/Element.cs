@@ -116,7 +116,7 @@ public abstract class Element : MonoBehaviour
             shooter.Stamina -= MoveAStaminaCost;
             Projectile proj = Projectile.ShootProjectile(shooter, _ballPrefab, x, y);
             proj.Knockback *= _moveAKnockBack;
-            shooter.ApplyForce(-x * 100, -y * 100);
+            shooter.ApplyForce(-x * 50, -y * 50);
         }
     }
 
@@ -133,7 +133,7 @@ public abstract class Element : MonoBehaviour
             shooter.Stamina -= MoveBStaminaCost;
             Projectile proj = Projectile.ShootProjectile(shooter, _ballPrefab, x, y);
             proj.Knockback *= _moveBKnockBack;
-            shooter.ApplyForce(-x * 100, -y * 100);
+            shooter.ApplyForce(-x * 50, -y * 50);
         }
     }
 

@@ -12,4 +12,22 @@ public class EarthBall : Projectile
         float knockb = 1.0f;
         base.Init(dmg, spd, timeDestroy, knockb);
     }
+
+    public override void OnCollisionEnter2D(Collision2D collision)
+    {
+        Character enemy = collision.collider.gameObject.GetComponent<Character>();
+        Projectile proj = collision.collider.gameObject.GetComponent<Projectile>();
+        if (enemy != null)
+        {
+            if (enemy.Element.GetType() == typeof(Air)) { Damage *= 2.0f; }
+            enemy.TakeDamage(Damage);
+            enemy.ApplyForce(Velocity.x * Knockback, Velocity.y * Knockback);
+            Destroy(gameObject);
+        } else if(proj != null)
+        {
+            if (proj.GetType() != typeof(AirBall) ||
+                proj.GetType() == typeof(FireBall))
+            { Destroy(gameObject); }
+        }
+    }
 }
