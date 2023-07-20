@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EarthPlatform : Obstacle
+public class EarthPlatform : MonoBehaviour
 {
     // If raising platform up, scale +1 = y + (1/2) 
     // If raising pltform sideways, sclae + 1 = y + cos(angle) / 2

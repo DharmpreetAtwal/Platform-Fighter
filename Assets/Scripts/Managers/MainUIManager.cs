@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class MainUIManager : MonoBehaviour
 {
@@ -24,16 +24,16 @@ public class MainUIManager : MonoBehaviour
 
     public void UpdateHealthBar(float h, float maxH)
     {
-        //var barRectTransform = healthBar.transform as RectTransform;
-        //barRectTransform.sizeDelta = new Vector2(100 *
-        //    (h / maxH), barRectTransform.sizeDelta.y);
+        var barRectTransform = healthBar.transform as RectTransform;
+        barRectTransform.sizeDelta = new Vector2(100 *
+            (h / maxH), barRectTransform.sizeDelta.y);
     }
 
     public void UpdateStaminaBar(float s, float maxS)
     {
-        //var barRectTransform = staminaBar.transform as RectTransform;
-        //barRectTransform.sizeDelta = new Vector2(100 * (s / maxS),
-        //    barRectTransform.sizeDelta.y);
+        var barRectTransform = staminaBar.transform as RectTransform;
+        barRectTransform.sizeDelta = new Vector2(100 * (s / maxS),
+            barRectTransform.sizeDelta.y);
     }
 
 }

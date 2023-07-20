@@ -13,9 +13,10 @@ public abstract class Character : MonoBehaviour
     public bool IsCooldownB { get; protected set; }
     public bool IsCooldownS { get; protected set; }
     public bool IsMovementEnabled { get; set; }
+    public bool IsParryCooldown { get; protected set; }
+    public bool IsParrying { get; protected set; }
     public bool NoneXInput { get; protected set; }
     public bool NoneYInput { get; protected set; }
-
     private Element _element;
     public Element Element {
         get { return _element; }
@@ -51,6 +52,19 @@ public abstract class Character : MonoBehaviour
         set { _stamina = value; }
     }
 
+    private float _parryCoolDur;
+    public float ParryCoolDur
+    {
+        get { return _parryCoolDur; }
+        private set { _parryCoolDur = value; }
+    }
+    private float _parryDur;
+    public float ParryDur
+    {
+        get { return _parryDur; }
+        private set { _parryDur = value; }
+    }
+
     private void Awake()
     {
         SpriteRen = gameObject.GetComponent<SpriteRenderer>();
@@ -62,6 +76,12 @@ public abstract class Character : MonoBehaviour
         IsCooldownA = false;
         IsCooldownB = false;
         IsMovementEnabled = true;
+        IsParryCooldown = false;
+        IsParrying = false;
+
+        _parryCoolDur = 2.0f;
+        _parryDur = 0.5f;
+
         UpdateSprite();
         InvokeRepeating(nameof(RecoverStamina), 0.0f, 0.1f);
     }
@@ -101,14 +121,6 @@ public abstract class Character : MonoBehaviour
             new Vector3(x, y), ForceMode2D.Impulse);
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Floor"))
-        {
-            IsJumping = false;
-        }
-    }
-
     public virtual void TakeDamage(float dmg)
     {
         _health -= (dmg / _element.Defence);
@@ -144,6 +156,13 @@ public abstract class Character : MonoBehaviour
         IsCooldownS = false;
     }
 
+    protected IEnumerator StartCooldownParry()
+    {
+        IsParryCooldown = true;
+        yield return new WaitForSeconds(_parryCoolDur);
+        IsParryCooldown = false;
+    }
+
     public int GetDirectionX()
     {
         if (NoneXInput) { return 0; }
@@ -160,4 +179,11 @@ public abstract class Character : MonoBehaviour
 
     public abstract void Jump();
 
+    public IEnumerator Parry(float parryDur)
+    {
+        IsParrying = true;
+        yield return new WaitForSeconds(_parryDur);
+        IsParrying = false;
+        StartCoroutine(StartCooldownParry());
+    }
 }

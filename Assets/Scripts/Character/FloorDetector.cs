@@ -7,11 +7,20 @@ public class FloorDetector : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Floor flr = collision.collider.gameObject.GetComponent<Floor>();
-        if(collision.collider.CompareTag("Floor"))
+        if(flr != null)
         {
             flr.gameObject.layer = 0;
         }
     }
+
+    //protected virtual void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    Floor flr = collision.collider.gameObject.GetComponent<Floor>();
+    //    if(flr != null)
+    //    {
+    //        gameObject.layer = 3;
+    //    }
+    //}
 
     private void Update()
     {

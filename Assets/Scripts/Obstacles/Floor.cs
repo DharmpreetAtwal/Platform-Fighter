@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour
 {
-    private void OnCollisionExit2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+        Character chr = collision.collider.gameObject.GetComponent<Character>();
+        if (chr != null)
+        {
+            chr.IsJumping = false;
+        }
+    }
+
+    protected virtual void OnCollisionExit2D(Collision2D collision)
     {
         Character chr = collision.collider.gameObject.GetComponent<Character>();
         if (chr != null)
@@ -13,4 +22,5 @@ public class Floor : MonoBehaviour
             chr.IsJumping = true;
         }
     }
+
 }

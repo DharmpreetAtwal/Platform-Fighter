@@ -2,10 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BendableGround : Obstacle
+public class BendableGround : Floor
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    // Landing straight on top of BendableGround, collision works correctly.
+    // Running across Bendable ground going from Floor -> BendableGround,
+    // collision doesn't work correctly.
+
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        Character chr = collision.collider.gameObject.GetComponent<Character>();
+        if (chr != null)
+        {
+            chr.IsJumping = false;
+        }
+
         Earth earth = collision.collider.gameObject.GetComponent<Earth>();
         if(earth != null)
         {
@@ -13,8 +23,15 @@ public class BendableGround : Obstacle
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    protected override void OnCollisionExit2D(Collision2D collision)
     {
+        Character chr = collision.collider.gameObject.GetComponent<Character>();
+        if (chr != null)
+        {
+            gameObject.layer = 3;
+            chr.IsJumping = true;
+        }
+
         Earth earth = collision.collider.gameObject.GetComponent<Earth>();
         if (earth != null)
         {

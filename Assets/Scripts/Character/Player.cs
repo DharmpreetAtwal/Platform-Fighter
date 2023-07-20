@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : Character
 {
+
+
     private void Awake()
     {
         Element elem = gameObject.GetComponent<Element>();
@@ -37,7 +39,8 @@ public class Player : Character
         if (IsMovementEnabled)
         {
             // Apply force along x?
-            //ApplyForce(translateX * 5, 0);
+            // ApplyForce(translateX * 5, 0);
+            // Accelerate quickly, but with small maxV
             gameObject.transform.position += new Vector3(translateX, 0);
 
             if (Input.GetKeyDown(KeyCode.Space) && !IsJumping)
@@ -49,11 +52,16 @@ public class Player : Character
                 StartCoroutine(StartCooldownA());
             }
 
-            if (Input.GetMouseButtonDown(1) && !IsCooldownB)
+            if (Input.GetMouseButtonDown(1) && !IsParryCooldown)
             {
-                StartCoroutine(Element.MoveMouseTwo(transform, 0));
-                StartCoroutine(StartCooldownB());
+                StartCoroutine(Parry(ParryDur));
             }
+
+            //if (Input.GetMouseButtonDown(1) && !IsCooldownB)
+            //{
+            //    StartCoroutine(Element.MoveMouseTwo(transform, 0));
+            //    StartCoroutine(StartCooldownB());
+            //}
 
             if (Input.GetKeyDown(KeyCode.LeftShift) && !IsCooldownS)
             {
@@ -68,7 +76,11 @@ public class Player : Character
         }
     }
 
-    public override void Jump() { IsJumping = true; ApplyForce(0, 600); }
+    public override void Jump()
+    {
+        IsJumping = true;
+        ApplyForce(0, 600);
+    }
 
     public override void TakeDamage(float dmg)
     {
