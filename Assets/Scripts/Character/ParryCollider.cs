@@ -37,17 +37,18 @@ public class ParryCollider : MonoBehaviour
 
         if (chr != null)
         {
-            //if (!chr.IsParrying) { gameObject.SetActive(false); }
-
-            float xOffset = chr.GetDirectionX() * 2;
-            float yOffset = chr.GetDirectionY() * 2;
+            float xOffset = chr.GetDirectionX() * 1.2f;
+            float yOffset = chr.GetDirectionY() * 1.2f;
             if (xOffset != 0 || yOffset != 0)
             {
                 gameObject.transform.localPosition = new Vector3(xOffset, yOffset);
-
-                float angleRotate = Mathf.Rad2Deg * Mathf.Atan2(yOffset, xOffset);
-                gameObject.transform.rotation = Quaternion.Euler(0, 0, angleRotate);
+            } else
+            {
+                xOffset = -1.2f;
+                gameObject.transform.localPosition = new Vector3(xOffset, yOffset);
             }
+            float angleRotate = Mathf.Rad2Deg * Mathf.Atan2(yOffset, xOffset);
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, angleRotate);
         }
     }
 }

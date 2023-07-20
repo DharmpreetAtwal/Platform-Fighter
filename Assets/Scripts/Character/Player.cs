@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Player : Character
 {
-
+    private Coroutine _comboCoroutine;
+    private int _comboCount;
+    private float _comboTimer;
 
     private void Awake()
     {
@@ -13,6 +15,9 @@ public class Player : Character
         float health = 100;
         float maxStam = 100;
         float stamina = 100;
+
+        _comboCount = 0;
+        _comboTimer = 2.0f;
 
         base.Init(elem, maxHealth, health, maxStam, stamina);
     }
@@ -48,20 +53,28 @@ public class Player : Character
 
             if (Input.GetMouseButtonDown(0) && !IsCooldownA)
             {
-                StartCoroutine(Element.MoveMouseOne(transform, 0));
+                if(_comboCoroutine != null && _comboCount > 0)
+                {
+                    StopCoroutine(_comboCoroutine);
+                }
+                 _comboCoroutine = StartCoroutine(InitComboTimer());
+                
+                _comboCount++;
+                if(_comboCount < 3)
+                {
+                    StartCoroutine(Element.MoveMouseOne(transform, 0));
+                } else
+                {
+                    StartCoroutine(Element.MoveMouseTwo(transform, 0));
+                }
+
                 StartCoroutine(StartCooldownA());
             }
 
             if (Input.GetMouseButtonDown(1) && !IsParryCooldown)
             {
-                StartCoroutine(Parry(ParryDur));
+                StartCoroutine(Parry());
             }
-
-            //if (Input.GetMouseButtonDown(1) && !IsCooldownB)
-            //{
-            //    StartCoroutine(Element.MoveMouseTwo(transform, 0));
-            //    StartCoroutine(StartCooldownB());
-            //}
 
             if (Input.GetKeyDown(KeyCode.LeftShift) && !IsCooldownS)
             {
@@ -109,4 +122,9 @@ public class Player : Character
         Destroy(elm);
     }
 
+    private IEnumerator InitComboTimer()
+    {
+        yield return new WaitForSeconds(_comboTimer);
+        _comboCount = 0;
+    }
 }

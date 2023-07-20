@@ -17,6 +17,7 @@ public abstract class Character : MonoBehaviour
     public bool IsParrying { get; protected set; }
     public bool NoneXInput { get; protected set; }
     public bool NoneYInput { get; protected set; }
+
     private Element _element;
     public Element Element {
         get { return _element; }
@@ -79,7 +80,7 @@ public abstract class Character : MonoBehaviour
         IsParryCooldown = false;
         IsParrying = false;
 
-        _parryCoolDur = 2.0f;
+        _parryCoolDur = 1.0f;
         _parryDur = 0.5f;
 
         UpdateSprite();
@@ -179,10 +180,14 @@ public abstract class Character : MonoBehaviour
 
     public abstract void Jump();
 
-    public IEnumerator Parry(float parryDur)
+    public IEnumerator Parry()
     {
+        ParryCollider parry = gameObject.GetComponentInChildren<ParryCollider>();
+
+        parry.enabled = true;
         IsParrying = true;
         yield return new WaitForSeconds(_parryDur);
+        parry.enabled = false;
         IsParrying = false;
         StartCoroutine(StartCooldownParry());
     }
