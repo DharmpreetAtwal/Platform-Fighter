@@ -17,7 +17,7 @@ public class FireBall : Projectile
     {
         Character enemy = collision.collider.gameObject.GetComponent<Character>();
         Projectile proj = collision.collider.gameObject.GetComponent<Projectile>();
-        if (enemy != null)
+        if (enemy != null && enemy != Owner)
         {
             if (enemy.Element.GetType() == typeof(Earth)) { Damage *= 2.0f; }
             enemy.TakeDamage(Damage);

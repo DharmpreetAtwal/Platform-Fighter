@@ -13,15 +13,6 @@ public class FloorDetector : MonoBehaviour
         }
     }
 
-    //protected virtual void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    Floor flr = collision.collider.gameObject.GetComponent<Floor>();
-    //    if(flr != null)
-    //    {
-    //        gameObject.layer = 3;
-    //    }
-    //}
-
     private void Update()
     {
         GameObject chr = gameObject.GetComponentInParent<Character>().gameObject;

@@ -16,11 +16,9 @@ public class Lightning : Projectile
 
     public override void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Enemy")
-            || collision.collider.CompareTag("Player"))
+        Character enemy = collision.collider.gameObject.GetComponent<Character>();
+        if (enemy != null && enemy != Owner)
         {
-            Character enemy =
-                collision.collider.gameObject.GetComponent<Character>();
             enemy.TakeDamage(Damage);
             enemy.ApplyForce(Velocity.x * Knockback, Velocity.y * Knockback);
         }

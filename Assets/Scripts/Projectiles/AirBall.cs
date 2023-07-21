@@ -17,9 +17,9 @@ public class AirBall : Projectile
     {
         Character enemy = collision.collider.gameObject.GetComponent<Character>();
         Projectile proj = collision.collider.gameObject.GetComponent<Projectile>();
-        if (enemy != null)
+        if (enemy != null && enemy != Owner)
         {
-            if(enemy.Element.GetType() == typeof(Water)) { Damage *= 2.0f; }
+            if (enemy.Element.GetType() == typeof(Water)) { Damage *= 2.0f; }
             enemy.TakeDamage(Damage);
             enemy.ApplyForce(Velocity.x * Knockback, Velocity.y * Knockback);
             Destroy(gameObject);

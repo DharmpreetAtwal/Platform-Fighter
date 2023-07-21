@@ -18,7 +18,7 @@ public class Icicle : Projectile
     {
         Character enemy = collision.collider.gameObject.GetComponent<Character>();
         Projectile proj = collision.collider.gameObject.GetComponent<Projectile>();
-        if (enemy != null)
+        if (enemy != null && enemy != Owner)
         {
             if (enemy.Element.GetType() == typeof(Fire) ||
                 enemy.Element.GetType() == typeof(Earth))
@@ -27,6 +27,11 @@ public class Icicle : Projectile
             enemy.TakeDamage(Damage);
             enemy.ApplyForce(Velocity.x * Knockback, Velocity.y * Knockback);
             Destroy(gameObject);
+        }
+        else if (proj != null)
+        {
+            if (proj.GetType() != typeof(FireBall))
+            { Destroy(gameObject); }
         }
     }
 
