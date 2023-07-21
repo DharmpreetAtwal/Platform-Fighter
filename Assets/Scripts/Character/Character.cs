@@ -15,6 +15,7 @@ public abstract class Character : MonoBehaviour
     public bool IsMovementEnabled { get; set; }
     public bool IsParryCooldown { get; protected set; }
     public bool IsParrying { get; protected set; }
+    public bool IsCharged { get; protected set; }
     public bool NoneXInput { get; protected set; }
     public bool NoneYInput { get; protected set; }
 
@@ -50,7 +51,16 @@ public abstract class Character : MonoBehaviour
     public float Stamina
     {
         get { return _stamina; }
-        set { _stamina = value; }
+        set {
+            if(value <= _maxStamina)
+            {
+                _stamina = value;
+            }
+            else
+            {
+                _stamina = _maxStamina;
+            }
+        }
     }
 
     private float _parryCoolDur;
@@ -64,6 +74,12 @@ public abstract class Character : MonoBehaviour
     {
         get { return _parryDur; }
         private set { _parryDur = value; }
+    }
+    private float _chargeShotDur;
+    public float ChargeShotDur
+    {
+        get { return _chargeShotDur; }
+        private set { _chargeShotDur = value; }
     }
 
     private void Awake()
@@ -79,9 +95,11 @@ public abstract class Character : MonoBehaviour
         IsMovementEnabled = true;
         IsParryCooldown = false;
         IsParrying = false;
+        IsCharged = false;
 
         _parryCoolDur = 1.0f;
         _parryDur = 0.5f;
+        _chargeShotDur = 2.0f;
 
         UpdateSprite();
         InvokeRepeating(nameof(RecoverStamina), 0.0f, 0.1f);

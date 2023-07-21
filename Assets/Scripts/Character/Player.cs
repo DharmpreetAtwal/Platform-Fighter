@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : Character
 {
     private Coroutine _comboCoroutine;
+    private Coroutine _chargeCoroutine;
+    private int _comboMin;
     private int _comboCount;
     private float _comboTimer;
 
@@ -18,6 +20,7 @@ public class Player : Character
 
         _comboCount = 0;
         _comboTimer = 2.0f;
+        _comboMin = 3;
 
         base.Init(elem, maxHealth, health, maxStam, stamina);
     }
@@ -51,29 +54,35 @@ public class Player : Character
             if (Input.GetKeyDown(KeyCode.Space) && !IsJumping)
             { Jump(); }
 
-            if (Input.GetMouseButtonDown(0) && !IsCooldownA)
-            {
-                if(_comboCoroutine != null && _comboCount > 0)
-                {
-                    StopCoroutine(_comboCoroutine);
-                }
-                 _comboCoroutine = StartCoroutine(InitComboTimer());
-                
-                _comboCount++;
-                if(_comboCount < 3)
-                {
-                    StartCoroutine(Element.MoveMouseOne(transform, 0));
-                } else
-                {
-                    StartCoroutine(Element.MoveMouseTwo(transform, 0));
-                }
-
-                StartCoroutine(StartCooldownA());
-            }
-
             if (Input.GetMouseButtonDown(1) && !IsParryCooldown)
             {
                 StartCoroutine(Parry());
+            }
+
+            // Mouse Hold down
+            if (Input.GetMouseButton(0))
+            {
+                if(_chargeCoroutine == null)
+                {
+                    _chargeCoroutine = StartCoroutine(ChargeShot());
+                }
+            }
+            else
+            {
+                if(IsCharged == false)
+                {
+                    if (_chargeCoroutine != null)
+                    {
+                        StopCoroutine(_chargeCoroutine);
+                        _chargeCoroutine = null;
+                        RegularShoot();
+                    }
+                } else
+                {
+                    StartCoroutine(Element.MoveMouseTwo(transform, 0));
+                    IsCharged = false;
+                    _chargeCoroutine = null;
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.LeftShift) && !IsCooldownS)
@@ -127,4 +136,26 @@ public class Player : Character
         yield return new WaitForSeconds(_comboTimer);
         _comboCount = 0;
     }
+
+    private IEnumerator ChargeShot()
+    {
+        yield return new WaitForSeconds(ChargeShotDur);
+        IsCharged = true;
+    }
+
+    private void RegularShoot()
+    {
+        if (!IsCooldownA)
+        {
+            if (_comboCoroutine != null && _comboCount > 0) { StopCoroutine(_comboCoroutine); }
+            _comboCoroutine = StartCoroutine(InitComboTimer());
+
+            _comboCount++;
+            if (_comboCount < _comboMin) { StartCoroutine(Element.MoveMouseOne(transform, 0)); }
+            else { StartCoroutine(Element.MoveMouseTwo(transform, 0)); }
+
+            StartCoroutine(StartCooldownA());
+        }
+    }
+
 }

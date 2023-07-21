@@ -7,7 +7,9 @@ public class MainUIManager : MonoBehaviour
 {
     public static MainUIManager Instance;
     public Image healthBar;
+    public Text healthText;
     public Image staminaBar;
+    public Text staminaText;
 
     // Start is called before the first frame update
     void Awake()
@@ -27,6 +29,7 @@ public class MainUIManager : MonoBehaviour
         var barRectTransform = healthBar.transform as RectTransform;
         barRectTransform.sizeDelta = new Vector2(100 *
             (h / maxH), barRectTransform.sizeDelta.y);
+        healthText.text = "HP: " + (int)h;
     }
 
     public void UpdateStaminaBar(float s, float maxS)
@@ -34,6 +37,7 @@ public class MainUIManager : MonoBehaviour
         var barRectTransform = staminaBar.transform as RectTransform;
         barRectTransform.sizeDelta = new Vector2(100 * (s / maxS),
             barRectTransform.sizeDelta.y);
+        staminaText.text = "STM: " + (int)s;
     }
 
 }

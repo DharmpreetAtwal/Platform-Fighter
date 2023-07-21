@@ -72,8 +72,7 @@ public abstract class Projectile : MonoBehaviour
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         Character enemy = collision.collider.gameObject.GetComponent<Character>();
-        Projectile proj = collision.collider.gameObject.GetComponent<Projectile>();
-        if (enemy != null)
+        if (enemy != null && enemy != _owner)
         {
             collision.collider.gameObject.GetComponent<Character>();
             enemy.TakeDamage(Damage);
