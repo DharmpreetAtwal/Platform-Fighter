@@ -72,8 +72,8 @@ public class Water : Element
         for(int i=0; i < 4; i++)
         {
             Character shooter = trans.gameObject.GetComponent<Character>();
-            float x = 2 * shooter.GetDirectionX();
-            float y = 2 * shooter.GetDirectionY();
+            float x = 2 * shooter.LastXInput;
+            float y = 2 * shooter.LastYInput;
 
             if(shooter.Stamina >= _iceFuryStaminaCost && (x!=0 || y !=0))
             {

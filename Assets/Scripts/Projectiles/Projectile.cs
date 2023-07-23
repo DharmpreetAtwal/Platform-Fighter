@@ -100,6 +100,7 @@ public abstract class Projectile : MonoBehaviour
         proj.Velocity = new Vector2(x * proj._speed, y * proj._speed);
         proj.Damage *= shooter.Element.Attack;
         proj.Owner = shooter;
+        MainUIManager.Instance.MoveProjectileLayer(proj.gameObject);
 
         float angleRotate = Mathf.Rad2Deg * Mathf.Atan2(y, x);
         ball.transform.Rotate(new Vector3(0, 0, angleRotate - 90));

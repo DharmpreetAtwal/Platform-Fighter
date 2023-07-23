@@ -40,4 +40,24 @@ public class MainUIManager : MonoBehaviour
         staminaText.text = "STM: " + (int)s;
     }
 
+    public void MoveDefaultLayer(GameObject obj)
+    {
+        obj.layer = 0;
+    }
+
+    public void MovePlatformCollisionLayer(GameObject obj)
+    {
+        obj.layer = 3;
+    }
+
+    public void MoveProjectileLayer(GameObject obj)
+    {
+        obj.layer = 6;
+    }
+
+    //public void MovePlatformlessPlayerLayer(GameObject obj)
+    //{
+    //    obj.layer = 7;
+    //}
+
 }

@@ -6,16 +6,21 @@ public class Floor : MonoBehaviour
 {
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        Character chr = collision.collider.gameObject.GetComponent<Character>();
-        if (chr != null)
-        {
-            chr.IsJumping = false;
-        }
+        CheckCharacterEnter(collision);
     }
 
     protected virtual void OnCollisionExit2D(Collision2D collision)
     {
         CheckCharacterExit(collision);
+    }
+
+    protected void CheckCharacterEnter(Collision2D collision)
+    {
+        Character chr = collision.collider.gameObject.GetComponent<Character>();
+        if (chr != null)
+        {
+            chr.IsJumping = false;
+        }
     }
 
     protected void CheckCharacterExit(Collision2D collision)
@@ -31,7 +36,7 @@ public class Floor : MonoBehaviour
     private IEnumerator MoveLowerLayer()
     {
         yield return new WaitForSeconds(0.5f);
-        gameObject.layer = 3;
+        MainUIManager.Instance.MovePlatformCollisionLayer(gameObject);
     }
 
 }

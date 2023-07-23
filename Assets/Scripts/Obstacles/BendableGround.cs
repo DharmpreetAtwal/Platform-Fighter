@@ -10,12 +10,7 @@ public class BendableGround : Floor
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        Character chr = collision.collider.gameObject.GetComponent<Character>();
-        if (chr != null)
-        {
-            chr.IsJumping = false;
-        }
-
+        CheckCharacterEnter(collision);
         Earth earth = collision.collider.gameObject.GetComponent<Earth>();
         if(earth != null)
         {
@@ -26,7 +21,6 @@ public class BendableGround : Floor
     protected override void OnCollisionExit2D(Collision2D collision)
     {
         CheckCharacterExit(collision);
-
         Earth earth = collision.collider.gameObject.GetComponent<Earth>();
         if (earth != null)
         {

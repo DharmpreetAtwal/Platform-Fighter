@@ -77,8 +77,8 @@ public class Fire : Element
 
         yield return new WaitForSeconds(_lightningChargeDur);
 
-        float x = 2 * shooter.GetDirectionX();
-        float y = 2 * shooter.GetDirectionY();
+        float x = 2 * shooter.LastXInput;
+        float y = 2 * shooter.LastYInput;
 
         if(shooter.Stamina >= _lightningStaminaCost && (x!=0 || y!=0))
         {

@@ -52,7 +52,7 @@ public abstract class Character : MonoBehaviour
     {
         get { return _stamina; }
         set {
-            if(value <= _maxStamina)
+            if (value <= _maxStamina)
             {
                 _stamina = value;
             }
@@ -82,6 +82,19 @@ public abstract class Character : MonoBehaviour
         private set { _chargeShotDur = value; }
     }
 
+    private int _lastXInput;
+    public int LastXInput
+    {
+        get { return _lastXInput; }
+        protected set { _lastXInput = value; }
+    }
+    private int _lastYInput;
+    public int LastYInput
+    {
+        get { return _lastYInput; }
+        protected set { _lastYInput = value; }
+    }
+
     private void Awake()
     {
         SpriteRen = gameObject.GetComponent<SpriteRenderer>();
@@ -100,6 +113,8 @@ public abstract class Character : MonoBehaviour
         _parryCoolDur = 1.0f;
         _parryDur = 0.5f;
         _chargeShotDur = 2.0f;
+        _lastXInput = 1;
+        _lastYInput = 1;
 
         UpdateSprite();
         InvokeRepeating(nameof(RecoverStamina), 0.0f, 0.1f);

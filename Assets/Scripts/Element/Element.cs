@@ -108,10 +108,10 @@ public abstract class Element : MonoBehaviour
     protected void MoveA(Transform trans)
     {
         Character shooter = trans.gameObject.GetComponent<Character>();
-        float x = 2 * shooter.GetDirectionX();
-        float y = 2 * shooter.GetDirectionY();
+        float x = 2 * shooter.LastXInput;
+        float y = 2 * shooter.LastYInput;
 
-        if (MoveAStaminaCost <= shooter.Stamina && (x != 0 || y != 0))
+        if (MoveAStaminaCost <= shooter.Stamina)
         {
             shooter.Stamina -= MoveAStaminaCost;
             Projectile proj = Projectile.ShootProjectile(shooter, _ballPrefab, x, y);
@@ -125,10 +125,10 @@ public abstract class Element : MonoBehaviour
     protected void MoveB(Transform trans)
     {
         Character shooter = trans.gameObject.GetComponent<Character>();
-        float x = 2 * shooter.GetDirectionX();
-        float y = 2 * shooter.GetDirectionY();
+        float x = 2 * shooter.LastXInput;
+        float y = 2 * shooter.LastYInput;
 
-        if (_moveBStaminaCost <= shooter.Stamina && (x != 0 || y != 0))
+        if (_moveBStaminaCost <= shooter.Stamina)
         {
             shooter.Stamina -= MoveBStaminaCost;
             Projectile proj = Projectile.ShootProjectile(shooter, _ballPrefab, x, y);

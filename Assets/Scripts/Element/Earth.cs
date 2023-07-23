@@ -75,8 +75,8 @@ public class Earth : Element
         if (_platformEnabled)
         {
             Character shooter = trans.gameObject.GetComponent<Character>();
-            float x = 2 * shooter.GetDirectionX();
-            float y = 2 * shooter.GetDirectionY();
+            float x = 2 * shooter.LastXInput;
+            float y = 2 * shooter.LastYInput;
 
             if (shooter.Stamina >= _platformStaminaCost)
             {

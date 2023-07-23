@@ -71,8 +71,8 @@ public class Air : Element
             trans.rotation);
 
         Character chr = trans.gameObject.GetComponent<Character>();
-        float x = chr.GetDirectionX();
-        float y = chr.GetDirectionY();
+        float x = chr.LastXInput;
+        float y = chr.LastYInput;
         chr.ApplyForce(100 * x, 100 * y);
     }
 

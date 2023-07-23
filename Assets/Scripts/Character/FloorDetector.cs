@@ -9,7 +9,7 @@ public class FloorDetector : MonoBehaviour
         Floor flr = collision.collider.gameObject.GetComponent<Floor>();
         if(flr != null)
         {
-            flr.gameObject.layer = 0;
+            MainUIManager.Instance.MoveDefaultLayer(flr.gameObject);
         }
     }
 

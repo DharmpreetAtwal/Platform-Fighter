@@ -44,6 +44,19 @@ public class Player : Character
         else if (inputY < 0) { IsLookingUp = false; NoneYInput = false; }
         else { NoneYInput = true; }
 
+        // LastX/YInput cannot be (0, 0)
+        int dirX = GetDirectionX();
+        int dirY = GetDirectionY();
+
+        if (dirX != 0 || dirY != 0)
+        {
+            LastXInput = dirX;
+            LastYInput = dirY;
+        }
+
+        //if (dirX == 0) { LastXInput = dirX; }
+        //if (dirY != 0) { LastYInput = dirY; }
+
         if (IsMovementEnabled)
         {
             // Apply force along x?
@@ -137,12 +150,6 @@ public class Player : Character
         _comboCount = 0;
     }
 
-    private IEnumerator ChargeShot()
-    {
-        yield return new WaitForSeconds(ChargeShotDur);
-        IsCharged = true;
-    }
-
     private void RegularShoot()
     {
         if (!IsCooldownA)
@@ -157,4 +164,11 @@ public class Player : Character
             StartCoroutine(StartCooldownA());
         }
     }
+
+    private IEnumerator ChargeShot()
+    {
+        yield return new WaitForSeconds(ChargeShotDur);
+        IsCharged = true;
+    }
+
 }
