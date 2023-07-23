@@ -11,20 +11,20 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - PlatformCollision
+  - 
   - Water
   - UI
   - Projectile
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Platform0
+  - Platform1
+  - Platform2
+  - Platform3
+  - Platform4
+  - Platform5
+  - Platform6
+  - Platform7
+  - Platform8
+  - PlatformDetector
   - 
   - 
   - 

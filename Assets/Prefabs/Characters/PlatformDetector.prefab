@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 8928431031436572184}
   - component: {fileID: 2485167410851744487}
   - component: {fileID: -8820582073360749116}
-  m_Layer: 3
-  m_Name: FloorDetector
+  m_Layer: 16
+  m_Name: PlatformDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 539047378257799396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 23.32, y: -6.05, z: 0}
-  m_LocalScale: {x: 0.1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

@@ -45,15 +45,15 @@ public class MainUIManager : MonoBehaviour
         obj.layer = 0;
     }
 
-    public void MovePlatformCollisionLayer(GameObject obj)
-    {
-        obj.layer = 3;
-    }
-
     public void MoveProjectileLayer(GameObject obj)
     {
         obj.layer = 6;
     }
+
+    //public void MovePlatformCollisionLayer(GameObject obj)
+    //{
+    //    obj.layer = 3;
+    //}
 
     //public void MovePlatformlessPlayerLayer(GameObject obj)
     //{

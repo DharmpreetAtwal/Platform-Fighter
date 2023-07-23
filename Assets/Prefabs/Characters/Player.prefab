@@ -32,8 +32,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2397122453799413943}
   - {fileID: 3717428859064440976}
+  - {fileID: 3853920927288997739}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d692ef4207e41a09ba68b53267abae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1850386648462867700
+--- !u!1001 &977930224468730664
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -147,11 +147,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 539047378257799396, guid: 0c2cb80b5554249dbb36fffda9e8d719, type: 3}
       propertyPath: m_Name
-      value: FloorDetector
+      value: PlatformDetector
       objectReference: {fileID: 0}
     - target: {fileID: 4101001288141149251, guid: 0c2cb80b5554249dbb36fffda9e8d719, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4101001288141149251, guid: 0c2cb80b5554249dbb36fffda9e8d719, type: 3}
       propertyPath: m_LocalPosition.x
@@ -159,7 +159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4101001288141149251, guid: 0c2cb80b5554249dbb36fffda9e8d719, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.4178691
+      value: -1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4101001288141149251, guid: 0c2cb80b5554249dbb36fffda9e8d719, type: 3}
       propertyPath: m_LocalPosition.z
@@ -195,10 +195,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c2cb80b5554249dbb36fffda9e8d719, type: 3}
---- !u!4 &2397122453799413943 stripped
+--- !u!4 &3853920927288997739 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4101001288141149251, guid: 0c2cb80b5554249dbb36fffda9e8d719, type: 3}
-  m_PrefabInstance: {fileID: 1850386648462867700}
+  m_PrefabInstance: {fileID: 977930224468730664}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2325769070109236386
 PrefabInstance:
@@ -209,7 +209,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1427710885482316850, guid: 50a8399be50ef4f459d1102dadcdcf5e, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1427710885482316850, guid: 50a8399be50ef4f459d1102dadcdcf5e, type: 3}
       propertyPath: m_LocalPosition.x
