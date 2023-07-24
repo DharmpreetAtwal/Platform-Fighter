@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7095138416022683160}
   - component: {fileID: 7050091926214653121}
-  - component: {fileID: 6973150116691148281}
   - component: {fileID: 5185437758057631918}
   - component: {fileID: 8948253962661098536}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: BendableGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,27 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &6973150116691148281
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4286784729258447457}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &5185437758057631918
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -118,7 +96,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

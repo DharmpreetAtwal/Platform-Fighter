@@ -34,7 +34,7 @@ public class Player : Character
     // Update is called once per frame
     void Update()
     {
-        float translateX = (5 * Element.Speed) * Time.deltaTime * Input.GetAxis("Horizontal");
+        float translateX = (Element.Speed) * Time.deltaTime * Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
 
         if (translateX > 0) { IsLookingRight = true; NoneXInput = false; }
@@ -57,13 +57,13 @@ public class Player : Character
 
         //if (dirX == 0) { LastXInput = dirX; }
         //if (dirY != 0) { LastYInput = dirY; }
-
+        CheckMaxVelocityX();
         if (IsMovementEnabled)
         {
             // Apply force along x?
-            // ApplyForce(translateX * 5, 0);
             // Accelerate quickly, but with small maxV
-            gameObject.transform.position += new Vector3(translateX, 0);
+            //gameObject.transform.position += new Vector3(translateX, 0);
+            ApplyForce(translateX * 500, 0);
 
             if (Input.GetKeyDown(KeyCode.Space) && !IsJumping)
             { Jump(); }

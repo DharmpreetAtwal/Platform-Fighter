@@ -8,19 +8,19 @@ public class BendableGround : Platform
     // Running across Bendable ground going from Platform -> BendableGround,
     // collision doesn't work correctly.
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
+    protected void OnTriggerEnter2D(Collider2D collision)
     {
         CheckCharacterEnter(collision);
-        Earth earth = collision.collider.gameObject.GetComponent<Earth>();
-        if(earth != null)
+        Earth earth = collision.gameObject.GetComponent<Earth>();
+        if (earth != null)
         {
             earth.PlatformEnabled = true;
         }
     }
 
-    protected void OnCollisionExit2D(Collision2D collision)
+    protected void OnTriggerExit2D(Collider2D collision)
     {
-        Earth earth = collision.collider.gameObject.GetComponent<Earth>();
+        Earth earth = collision.gameObject.GetComponent<Earth>();
         if (earth != null)
         {
             earth.PlatformEnabled = false;

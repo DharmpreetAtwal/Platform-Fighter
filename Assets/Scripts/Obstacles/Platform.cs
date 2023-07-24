@@ -17,4 +17,13 @@ public class Platform : MonoBehaviour
             chr.IsJumping = false;
         }
     }
+
+    protected void CheckCharacterEnter(Collider2D collision)
+    {
+        Character chr = collision.gameObject.GetComponent<Character>();
+        if (chr != null)
+        {
+            chr.IsJumping = false;
+        }
+    }
 }

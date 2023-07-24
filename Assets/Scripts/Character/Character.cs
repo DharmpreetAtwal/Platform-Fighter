@@ -62,6 +62,12 @@ public abstract class Character : MonoBehaviour
             }
         }
     }
+    private float _maxSpeedX;
+    public float MaxSpeedX
+    {
+        get { return _maxSpeedX; }
+        private set { _maxSpeedX = value; }
+    }
 
     private float _parryCoolDur;
     public float ParryCoolDur
@@ -128,6 +134,8 @@ public abstract class Character : MonoBehaviour
         _health = health;
         _maxStamina = maxStam;
         _stamina = stamina;
+        _maxSpeedX = 10;
+
         Awake();
     }
 
@@ -145,8 +153,8 @@ public abstract class Character : MonoBehaviour
 
     public void ApplyForce(float x, float y)
     {
-        gameObject.GetComponent<Rigidbody2D>().AddForce(
-            new Vector3(x, y), ForceMode2D.Force);
+        Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+        rb.AddForce(new Vector3(x, y), ForceMode2D.Force);
     }
 
     public void ApplyImpulse(float x, float y)
@@ -219,5 +227,21 @@ public abstract class Character : MonoBehaviour
         yield return new WaitForSeconds(_parryDur);
         IsParrying = false;
         StartCoroutine(StartCooldownParry());
+    }
+
+    protected void CheckMaxVelocityX()
+    {
+        Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+        if (Mathf.Abs(rb.velocity.x) > _maxSpeedX)
+        {
+            if (rb.velocity.x < 0)
+            {
+                rb.velocity = new Vector2(-_maxSpeedX, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(_maxSpeedX, rb.velocity.y);
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ public class Guard : Enemy
         float stamina = 100;
 
         base.Init(elem, maxHealth, health, maxStam, stamina);
-        InvokeRepeating(nameof(Shoot), 3.0f, 2.0f);
+        //InvokeRepeating(nameof(Shoot), 3.0f, 2.0f);
     }
 
     public override void Jump()
