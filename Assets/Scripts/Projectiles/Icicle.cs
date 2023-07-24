@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Icicle : Projectile
 {
-    // Start is called before the first frame update
     private void Awake()
     {
         float dmg = 2.0f;
@@ -34,5 +33,4 @@ public class Icicle : Projectile
             { Destroy(gameObject); }
         }
     }
-
 }

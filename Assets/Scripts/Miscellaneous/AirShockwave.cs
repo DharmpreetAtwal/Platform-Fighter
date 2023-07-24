@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class AirShockwave : MonoBehaviour
 {
+    private float _scaleSpeed = 50;
+    private float _scaleMax = 20;
+
     // Update is called once per frame
     void Update()
     {
-        float scaleSpeed = 50;
-
         Vector3 scaleIncrm =
-            new Vector3(scaleSpeed * Time.deltaTime, scaleSpeed *Time.deltaTime);
+            new Vector3(_scaleSpeed * Time.deltaTime, _scaleSpeed * Time.deltaTime);
         gameObject.transform.localScale += scaleIncrm;
 
-        if(gameObject.transform.localScale.x > 20)
+        if(gameObject.transform.localScale.x > _scaleMax)
         {
             Destroy(gameObject);
         }

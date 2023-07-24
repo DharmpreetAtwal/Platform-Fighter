@@ -78,7 +78,7 @@ public class Player : Character
             {
                 if(_chargeCoroutine == null)
                 {
-                    _chargeCoroutine = StartCoroutine(ChargeShot());
+                    _chargeCoroutine = StartCoroutine(ChargedShot());
                 }
             }
             else
@@ -89,7 +89,7 @@ public class Player : Character
                     {
                         StopCoroutine(_chargeCoroutine);
                         _chargeCoroutine = null;
-                        RegularShoot();
+                        RegularShot();
                     }
                 } else
                 {
@@ -156,7 +156,7 @@ public class Player : Character
         _comboCount = 0;
     }
 
-    private void RegularShoot()
+    private void RegularShot()
     {
         if (!IsCooldownA)
         {
@@ -171,9 +171,9 @@ public class Player : Character
         }
     }
 
-    private IEnumerator ChargeShot()
+    private IEnumerator ChargedShot()
     {
-        yield return new WaitForSeconds(ChargeShotDur);
+        yield return new WaitForSeconds(ChargedShotDur);
         IsCharged = true;
     }
 

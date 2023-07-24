@@ -11,7 +11,7 @@ public class ParryCollider : MonoBehaviour
         private set { _xOffset = value; }
     }
     private float _yOffset;
-    public float MyProperty
+    public float YOffset
     {
         get { return _yOffset; }
         private set { _yOffset = value; }

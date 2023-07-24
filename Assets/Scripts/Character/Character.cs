@@ -75,11 +75,11 @@ public abstract class Character : MonoBehaviour
         get { return _parryDur; }
         private set { _parryDur = value; }
     }
-    private float _chargeShotDur;
-    public float ChargeShotDur
+    private float _chargedShotDur;
+    public float ChargedShotDur
     {
-        get { return _chargeShotDur; }
-        private set { _chargeShotDur = value; }
+        get { return _chargedShotDur; }
+        private set { _chargedShotDur = value; }
     }
 
     private int _lastXInput;
@@ -112,7 +112,7 @@ public abstract class Character : MonoBehaviour
 
         _parryCoolDur = 1.0f;
         _parryDur = 0.5f;
-        _chargeShotDur = 2.0f;
+        _chargedShotDur = 2.0f;
         _lastXInput = 1;
         _lastYInput = 0;
 

@@ -27,14 +27,4 @@ public class BendableGround : Platform
         }
     }
 
-    //protected override void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    CheckCharacterExit(collision);
-    //    Earth earth = collision.collider.gameObject.GetComponent<Earth>();
-    //    if (earth != null)
-    //    {
-    //        earth.PlatformEnabled = false;
-    //    }
-    //}
-
 }

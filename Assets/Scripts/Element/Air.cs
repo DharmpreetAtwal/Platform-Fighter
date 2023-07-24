@@ -76,5 +76,4 @@ public class Air : Element
         chr.ApplyForce(100 * x, 100 * y);
     }
 
-
 }

@@ -12,7 +12,7 @@ public class Guard : Enemy
         float maxStam = 100;
         float stamina = 100;
 
-        base.Init(elem, maxHealth, health, maxStam, stamina); ;
+        base.Init(elem, maxHealth, health, maxStam, stamina);
         InvokeRepeating(nameof(Shoot), 3.0f, 2.0f);
     }
 

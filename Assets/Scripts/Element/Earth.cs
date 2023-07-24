@@ -10,7 +10,6 @@ public class Earth : Element
         get { return _platformEnabled; }
         set { _platformEnabled = value; }
     }
-
     public float _platformCooldownDur;
     public float PlatformCooldownDur
     {
