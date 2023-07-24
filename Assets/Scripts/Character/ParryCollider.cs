@@ -17,12 +17,12 @@ public class ParryCollider : MonoBehaviour
         private set { _yOffset = value; }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         Character chr = gameObject.GetComponentInParent<Character>();
         if (chr.IsParrying)
         {
-            Projectile proj = collision.collider.gameObject.GetComponent<Projectile>();
+            Projectile proj = collision.gameObject.GetComponent<Projectile>();
             if (proj != null)
             {
                 Destroy(proj.gameObject);
@@ -42,11 +42,12 @@ public class ParryCollider : MonoBehaviour
             if (xOffset != 0 || yOffset != 0)
             {
                 gameObject.transform.localPosition = new Vector3(xOffset, yOffset);
-            } else
-            {
-                xOffset = -1.2f;
-                gameObject.transform.localPosition = new Vector3(xOffset, yOffset);
             }
+            //else
+            //{
+            //    xOffset = -1.2f;
+            //    gameObject.transform.localPosition = new Vector3(xOffset, yOffset);
+            //}
             float angleRotate = Mathf.Rad2Deg * Mathf.Atan2(yOffset, xOffset);
             gameObject.transform.rotation = Quaternion.Euler(0, 0, angleRotate);
         }

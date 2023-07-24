@@ -4,23 +4,13 @@ using UnityEngine;
 
 public class PlatformDetector : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Platform flr = collision.collider.gameObject.GetComponent<Platform>();
-        if(flr != null)
-        {
-            GameObject chr = gameObject.GetComponentInParent<Character>().gameObject;
-            chr.layer = flr.gameObject.layer;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        Platform flr = collision.collider.gameObject.GetComponent<Platform>();
+        Platform flr = collision.gameObject.GetComponent<Platform>();
         if (flr != null)
         {
             GameObject chr = gameObject.GetComponentInParent<Character>().gameObject;
-            //MainUIManager.Instance.MoveDefaultLayer(chr);
+            chr.layer = flr.gameObject.layer;
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -106,6 +107,11 @@ public class Player : Character
 
             if (Input.GetKeyDown(KeyCode.E))
             { ChangeElement(); UpdateSprite(); }
+
+            if (Input.GetKey(KeyCode.S))
+            {
+                MainUIManager.Instance.MoveDefaultLayer(gameObject);
+            }
 
             MainUIManager.Instance.UpdateStaminaBar(Stamina, MaxStamina);
         }

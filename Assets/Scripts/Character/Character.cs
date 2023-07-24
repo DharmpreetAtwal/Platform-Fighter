@@ -114,7 +114,7 @@ public abstract class Character : MonoBehaviour
         _parryDur = 0.5f;
         _chargeShotDur = 2.0f;
         _lastXInput = 1;
-        _lastYInput = 1;
+        _lastYInput = 0;
 
         UpdateSprite();
         InvokeRepeating(nameof(RecoverStamina), 0.0f, 0.1f);
@@ -215,12 +215,8 @@ public abstract class Character : MonoBehaviour
 
     public IEnumerator Parry()
     {
-        ParryCollider parry = gameObject.GetComponentInChildren<ParryCollider>();
-
-        parry.enabled = true;
         IsParrying = true;
         yield return new WaitForSeconds(_parryDur);
-        parry.enabled = false;
         IsParrying = false;
         StartCoroutine(StartCooldownParry());
     }
