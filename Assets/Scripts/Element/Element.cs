@@ -140,4 +140,15 @@ public abstract class Element : MonoBehaviour
 
     public abstract void MoveShift(Transform trans, int index);
 
+    public static void AddElement(GameObject chr, string elem)
+    {
+        if (elem.Equals("Air"))
+        { chr.AddComponent<Air>(); }
+        else if (elem.Equals("Earth"))
+        { chr.AddComponent<Earth>(); }
+        else if (elem.Equals("Fire"))
+        { chr.AddComponent<Fire>(); }
+        else if (elem.Equals("Water"))
+        { chr.AddComponent<Water>(); }
+    }
 }

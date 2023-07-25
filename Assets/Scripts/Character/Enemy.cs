@@ -18,4 +18,9 @@ public abstract class Enemy : Character
         StartCoroutine(Element.MoveMouseOne(transform, 0));
     }
 
+    public void Update()
+    {
+        CheckBounds();
+    }
+
 }

@@ -9,18 +9,24 @@ public class PlatformDetector : MonoBehaviour
         Platform flr = collision.gameObject.GetComponent<Platform>();
         if (flr != null)
         {
-            GameObject chr = gameObject.GetComponentInParent<Character>().gameObject;
-            chr.layer = flr.gameObject.layer;
+            Character chr = gameObject.GetComponentInParent<Character>();
+            if(chr != null)
+            {
+                chr.gameObject.layer = flr.gameObject.layer;
+            }
         }
     }
 
     private void Update()
     {
-        GameObject chr = gameObject.GetComponentInParent<Character>().gameObject;
-        if(chr == null) { Destroy(gameObject); }
-        else
+        if (gameObject.GetComponentInParent<Character>() != null)
         {
-            transform.position = chr.transform.position + new Vector3(0, -1.5f);
+            GameObject chr = gameObject.GetComponentInParent<Character>().gameObject;
+            if (chr == null) { Destroy(gameObject); }
+            else
+            {
+                transform.position = chr.transform.position + new Vector3(0, -1.5f);
+            }
         }
     }
 }

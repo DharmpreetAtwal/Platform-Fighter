@@ -34,6 +34,8 @@ public class Player : Character
     // Update is called once per frame
     void Update()
     {
+        CheckBounds();
+
         float translateX = (Element.Speed) * Time.deltaTime * Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
 

@@ -101,6 +101,19 @@ public abstract class Character : MonoBehaviour
         protected set { _lastYInput = value; }
     }
 
+    public void Init(Element elem, float maxHealth, float health,
+        float maxStam, float stamina)
+    {
+        _element = elem;
+        _maxHealth = maxHealth;
+        _health = health;
+        _maxStamina = maxStam;
+        _stamina = stamina;
+        _maxSpeedX = 10;
+
+        Awake();
+    }
+
     private void Awake()
     {
         SpriteRen = gameObject.GetComponent<SpriteRenderer>();
@@ -124,19 +137,6 @@ public abstract class Character : MonoBehaviour
 
         UpdateSprite();
         InvokeRepeating(nameof(RecoverStamina), 0.0f, 0.1f);
-    }
-
-    public void Init(Element elem, float maxHealth, float health,
-        float maxStam, float stamina)
-    {
-        _element = elem;
-        _maxHealth = maxHealth;
-        _health = health;
-        _maxStamina = maxStam;
-        _stamina = stamina;
-        _maxSpeedX = 10;
-
-        Awake();
     }
 
     protected void UpdateSprite()
@@ -166,7 +166,7 @@ public abstract class Character : MonoBehaviour
     public virtual void TakeDamage(float dmg)
     {
         _health -= (dmg / _element.Defence);
-        if(_health <= 0) { Destroy(gameObject); }
+        if(_health <= 0) { Death(); }
     }
 
     public void RecoverStamina()
@@ -243,5 +243,19 @@ public abstract class Character : MonoBehaviour
                 rb.velocity = new Vector2(_maxSpeedX, rb.velocity.y);
             }
         }
+    }
+
+    protected void CheckBounds()
+    {
+        if (gameObject.transform.position.y <= GameManager.Instance.deathAxis)
+        {
+            Death();
+        }
+    }
+
+    protected void Death()
+    {
+        Destroy(gameObject);
+        GameManager.Instance.charCount--;
     }
 }
