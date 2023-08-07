@@ -135,6 +135,7 @@ public abstract class Character : MonoBehaviour
         _lastXInput = 1;
         _lastYInput = 0;
 
+        GameManager.Instance.charCount++;
         UpdateSprite();
         InvokeRepeating(nameof(RecoverStamina), 0.0f, 0.1f);
     }

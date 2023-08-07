@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
     public void SpawnPlayer(Vector3 pos, Quaternion rot, string elem)
     {
         GameObject player = Instantiate(playerPrefab, pos, rot);
-        charCount++;
         Element.AddElement(player, elem);
         player.AddComponent<Player>();
     }
@@ -52,9 +51,7 @@ public class GameManager : MonoBehaviour
     public void SpawnGuard(Vector3 pos, Quaternion rot, string elem)
     {
         GameObject guard = Instantiate(guardPrefab, pos, rot);
-        charCount++;
         Element.AddElement(guard, elem);
-
         guard.AddComponent<Guard>();
     }
 
