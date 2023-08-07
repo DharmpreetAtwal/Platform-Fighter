@@ -23,10 +23,6 @@ public class PlatformDetector : MonoBehaviour
         {
             GameObject chr = gameObject.GetComponentInParent<Character>().gameObject;
             if (chr == null) { Destroy(gameObject); }
-            else
-            {
-                transform.position = chr.transform.position + new Vector3(0, -1.5f);
-            }
         }
     }
 }

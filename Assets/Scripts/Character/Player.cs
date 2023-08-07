@@ -14,6 +14,7 @@ public class Player : Character
     private void Awake()
     {
         Element elem = gameObject.GetComponent<Element>();
+
         float maxHealth = 100;
         float health = 100;
         float maxStam = 100;

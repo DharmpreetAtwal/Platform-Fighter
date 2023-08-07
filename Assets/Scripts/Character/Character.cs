@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     private SpriteRenderer SpriteRen { get; set; }
+    private Animator Animator { get; set; }
 
     public bool IsLookingRight { get; protected set; }
     public bool IsLookingUp { get; protected set; }
@@ -117,6 +118,8 @@ public abstract class Character : MonoBehaviour
     private void Awake()
     {
         SpriteRen = gameObject.GetComponent<SpriteRenderer>();
+        Animator = gameObject.GetComponent<Animator>();
+
         IsLookingRight = true;
         IsLookingUp = false;
         NoneXInput = true;
@@ -135,9 +138,14 @@ public abstract class Character : MonoBehaviour
         _lastXInput = 1;
         _lastYInput = 0;
 
-        GameManager.Instance.charCount++;
+        //GameManager.Instance.charCount++;
         UpdateSprite();
         InvokeRepeating(nameof(RecoverStamina), 0.0f, 0.1f);
+    }
+
+    private void Start()
+    {
+        GameManager.Instance.charCount++;
     }
 
     protected void UpdateSprite()
@@ -244,6 +252,8 @@ public abstract class Character : MonoBehaviour
                 rb.velocity = new Vector2(_maxSpeedX, rb.velocity.y);
             }
         }
+
+        Animator.SetFloat("Velocity", rb.velocity.x);
     }
 
     protected void CheckBounds()

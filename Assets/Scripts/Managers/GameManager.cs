@@ -36,9 +36,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Vector3 pos = new Vector3(17.1f, -9.4f);
-        Quaternion rot = Quaternion.Euler(0, 0, 0);
-        SpawnPlayer(pos, rot, "Air");
+        //Vector3 pos = new Vector3(17.1f, -9.4f);
+        //Quaternion rot = Quaternion.Euler(0, 0, 0);
+        //SpawnPlayer(pos, rot, "Air");
     }
 
     public void SpawnPlayer(Vector3 pos, Quaternion rot, string elem)
