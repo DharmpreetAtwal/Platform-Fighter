@@ -123,6 +123,10 @@ public class Player : Character
     public override void Jump()
     {
         IsJumping = true;
+    }
+
+    private void ApplyJumpForce()
+    {
         ApplyForce(0, 600);
     }
 

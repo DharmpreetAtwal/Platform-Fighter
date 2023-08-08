@@ -254,6 +254,7 @@ public abstract class Character : MonoBehaviour
         }
 
         Animator.SetFloat("Velocity", rb.velocity.x);
+        Animator.SetBool("IsJumping", IsJumping);
     }
 
     protected void CheckBounds()
