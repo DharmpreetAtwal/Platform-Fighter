@@ -9,6 +9,8 @@ public abstract class Character : MonoBehaviour
 
     public bool IsLookingRight { get; protected set; }
     public bool IsLookingUp { get; protected set; }
+    public bool NoneXInput { get; protected set; }
+    public bool NoneYInput { get; protected set; }
     public bool IsJumping { get; set; }
     public bool IsCooldownA { get; protected set; }
     public bool IsCooldownB { get; protected set; }
@@ -17,8 +19,7 @@ public abstract class Character : MonoBehaviour
     public bool IsParryCooldown { get; protected set; }
     public bool IsParrying { get; protected set; }
     public bool IsCharged { get; protected set; }
-    public bool NoneXInput { get; protected set; }
-    public bool NoneYInput { get; protected set; }
+
 
     private Element _element;
     public Element Element {
@@ -255,6 +256,11 @@ public abstract class Character : MonoBehaviour
 
         Animator.SetFloat("Velocity", rb.velocity.x);
         Animator.SetBool("IsJumping", IsJumping);
+        Animator.SetBool("IsCooldownA", IsCooldownA);
+        Animator.SetBool("IsLookingRight", IsLookingRight);
+        Animator.SetBool("IsLookingUp", IsLookingUp);
+        Animator.SetBool("NoneXInput", NoneXInput);
+        Animator.SetBool("NoneYInput", NoneYInput);
     }
 
     protected void CheckBounds()
