@@ -36,7 +36,6 @@ public class Player : Character
     void Update()
     {
         CheckBounds();
-
         float translateX = (Element.Speed) * Time.deltaTime * Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
 
@@ -48,59 +47,29 @@ public class Player : Character
         else if (inputY < 0) { IsLookingUp = false; NoneYInput = false; }
         else { NoneYInput = true; }
 
-        // LastX/YInput cannot be (0, 0)
-        int dirX = GetDirectionX();
-        int dirY = GetDirectionY();
-
-        if (dirX != 0 || dirY != 0)
+        if(gameObject.GetComponent<Rigidbody2D>().velocity.magnitude == 0)
         {
-            LastXInput = dirX;
-            LastYInput = dirY;
+            HandleIdleAiming();
+        }
+        else
+        {
+            // LastX/YInput cannot be (0, 0)
+            int dirX = GetDirectionX();
+            int dirY = GetDirectionY();
+
+            if (dirX != 0 || dirY != 0)
+            {
+                LastXInput = dirX;
+                LastYInput = dirY;
+            }
         }
 
-        //if (dirX == 0) { LastXInput = dirX; }
-        //if (dirY != 0) { LastYInput = dirY; }
         CheckMaxVelocityX();
         if (IsMovementEnabled)
         {
-            // Apply force along x?
-            // Accelerate quickly, but with small maxV
-            //gameObject.transform.position += new Vector3(translateX, 0);
             ApplyForce(translateX * 500, 0);
-
-            if (Input.GetKeyDown(KeyCode.Space) && !IsJumping)
-            { Jump(); }
-
-            if (Input.GetMouseButtonDown(1) && !IsParryCooldown)
-            {
-                StartCoroutine(Parry());
-            }
-
-            // Mouse Hold down
-            if (Input.GetMouseButton(0))
-            {
-                if(_chargeCoroutine == null)
-                {
-                    _chargeCoroutine = StartCoroutine(ChargedShot());
-                }
-            }
-            else
-            {
-                if(IsCharged == false)
-                {
-                    if (_chargeCoroutine != null)
-                    {
-                        StopCoroutine(_chargeCoroutine);
-                        _chargeCoroutine = null;
-                        RegularShot();
-                    }
-                } else
-                {
-                    StartCoroutine(Element.MoveMouseTwo(transform, 0));
-                    IsCharged = false;
-                    _chargeCoroutine = null;
-                }
-            }
+            HandleShoot();
+            UpdateAnimationParameters();
 
             if (Input.GetKeyDown(KeyCode.LeftShift) && !IsCooldownS)
             {
@@ -125,7 +94,9 @@ public class Player : Character
         IsJumping = true;
     }
 
+#pragma warning disable IDE0051 // Remove unused private members
     private void ApplyJumpForce()
+#pragma warning restore IDE0051 // Remove unused private members
     {
         ApplyForce(0, 600);
     }
@@ -163,6 +134,44 @@ public class Player : Character
         _comboCount = 0;
     }
 
+    private void HandleShoot()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && !IsJumping)
+        { Jump(); }
+
+        if (Input.GetMouseButtonDown(1) && !IsParryCooldown)
+        {
+            StartCoroutine(Parry());
+        }
+
+        // Mouse Hold down
+        if (Input.GetMouseButton(0))
+        {
+            if (_chargeCoroutine == null)
+            {
+                _chargeCoroutine = StartCoroutine(ChargedShot());
+            }
+        }
+        else
+        {
+            if (IsCharged == false)
+            {
+                if (_chargeCoroutine != null)
+                {
+                    StopCoroutine(_chargeCoroutine);
+                    _chargeCoroutine = null;
+                    RegularShot();
+                }
+            }
+            else
+            {
+                StartCoroutine(Element.MoveMouseTwo(transform, 0));
+                IsCharged = false;
+                _chargeCoroutine = null;
+            }
+        }
+    }
+
     private void RegularShot()
     {
         if (!IsCooldownA)
@@ -183,5 +192,44 @@ public class Player : Character
         yield return new WaitForSeconds(ChargedShotDur);
         IsCharged = true;
     }
+
+    private void HandleIdleAiming()
+    {
+        if (Input.GetKeyDown(KeyCode.D)) { LastXInput = 1; }
+        else if (Input.GetKeyDown(KeyCode.A)) { LastXInput = -1; }
+
+        float angleRad = Mathf.Atan2(LastYInput, LastXInput);
+        if (IsLookingRight)
+        {
+            if (Input.GetKeyDown(KeyCode.W) && angleRad < Math.PI / 2)
+            {
+                angleRad += (float)Math.PI / 4;
+            }
+            else if (Input.GetKeyDown(KeyCode.S) && angleRad > -1 * Math.PI / 2)
+            {
+                angleRad -= (float)Math.PI / 4;
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.W) && angleRad != (float)Math.PI / 2)
+            {
+                angleRad -= (float)Math.PI / 4;
+            }
+            else if (Input.GetKeyDown(KeyCode.S) && angleRad != (float)Math.PI / -2)
+            {
+                angleRad += (float)Math.PI / 4;
+            }
+        }
+
+        Vector2 x = new Vector2(Mathf.Cos(angleRad), 0);
+        Vector2 y = new Vector2(0, Mathf.Sin(angleRad));
+        x = x.normalized;
+        y = y.normalized;
+
+        LastXInput = (int)x.x;
+        LastYInput = (int)y.y;
+    }
+
 
 }

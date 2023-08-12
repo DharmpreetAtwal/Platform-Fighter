@@ -256,11 +256,6 @@ public abstract class Character : MonoBehaviour
 
         Animator.SetFloat("Velocity", rb.velocity.x);
         Animator.SetBool("IsJumping", IsJumping);
-        Animator.SetBool("IsCooldownA", IsCooldownA);
-        Animator.SetBool("IsLookingRight", IsLookingRight);
-        Animator.SetBool("IsLookingUp", IsLookingUp);
-        Animator.SetBool("NoneXInput", NoneXInput);
-        Animator.SetBool("NoneYInput", NoneYInput);
     }
 
     protected void CheckBounds()
@@ -275,5 +270,16 @@ public abstract class Character : MonoBehaviour
     {
         Destroy(gameObject);
         GameManager.Instance.charCount--;
+    }
+
+    protected void UpdateAnimationParameters()
+    {
+        Animator.SetBool("IsCooldownA", IsCooldownA);
+        Animator.SetBool("IsLookingRight", IsLookingRight);
+        Animator.SetBool("IsLookingUp", IsLookingUp);
+        Animator.SetBool("NoneXInput", NoneXInput);
+        Animator.SetBool("NoneYInput", NoneYInput);
+        Animator.SetInteger("LastXInput", LastXInput);
+        Animator.SetInteger("LastYInput", LastYInput);
     }
 }
