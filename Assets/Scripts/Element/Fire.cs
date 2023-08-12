@@ -35,7 +35,8 @@ public class Fire : Element
         float atk = 1.0f;
         float def = 0.75f;
         float end = 1.5f;
-        float coolADur = 0.25f;
+
+        float coolADur = 0.5f;
         float coolBDur = 1.0f;
         float moveACost = 20;
         float moveBCost = 20;

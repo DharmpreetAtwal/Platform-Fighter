@@ -281,5 +281,6 @@ public abstract class Character : MonoBehaviour
         Animator.SetBool("NoneYInput", NoneYInput);
         Animator.SetInteger("LastXInput", LastXInput);
         Animator.SetInteger("LastYInput", LastYInput);
+        Animator.SetBool("Mouse0Release", Input.GetMouseButtonUp(0));
     }
 }

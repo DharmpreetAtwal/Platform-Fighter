@@ -68,8 +68,16 @@ public class Player : Character
         if (IsMovementEnabled)
         {
             ApplyForce(translateX * 500, 0);
-            HandleShoot();
             UpdateAnimationParameters();
+            HandleMouseHold();
+
+            if (Input.GetKeyDown(KeyCode.Space) && !IsJumping)
+            { Jump(); }
+
+            if (Input.GetMouseButtonDown(1) && !IsParryCooldown)
+            {
+                StartCoroutine(Parry());
+            }
 
             if (Input.GetKeyDown(KeyCode.LeftShift) && !IsCooldownS)
             {
@@ -134,65 +142,6 @@ public class Player : Character
         _comboCount = 0;
     }
 
-    private void HandleShoot()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && !IsJumping)
-        { Jump(); }
-
-        if (Input.GetMouseButtonDown(1) && !IsParryCooldown)
-        {
-            StartCoroutine(Parry());
-        }
-
-        // Mouse Hold down
-        if (Input.GetMouseButton(0))
-        {
-            if (_chargeCoroutine == null)
-            {
-                _chargeCoroutine = StartCoroutine(ChargedShot());
-            }
-        }
-        else
-        {
-            if (IsCharged == false)
-            {
-                if (_chargeCoroutine != null)
-                {
-                    StopCoroutine(_chargeCoroutine);
-                    _chargeCoroutine = null;
-                    RegularShot();
-                }
-            }
-            else
-            {
-                StartCoroutine(Element.MoveMouseTwo(transform, 0));
-                IsCharged = false;
-                _chargeCoroutine = null;
-            }
-        }
-    }
-
-    private void RegularShot()
-    {
-        if (!IsCooldownA)
-        {
-            if (_comboCoroutine != null && _comboCount > 0) { StopCoroutine(_comboCoroutine); }
-            _comboCoroutine = StartCoroutine(InitComboTimer());
-
-            _comboCount++;
-            if (_comboCount < _comboMin) { StartCoroutine(Element.MoveMouseOne(transform, 0)); }
-            else { StartCoroutine(Element.MoveMouseTwo(transform, 0)); }
-
-            StartCoroutine(StartCooldownA());
-        }
-    }
-
-    private IEnumerator ChargedShot()
-    {
-        yield return new WaitForSeconds(ChargedShotDur);
-        IsCharged = true;
-    }
-
     private void HandleIdleAiming()
     {
         if (Input.GetKeyDown(KeyCode.D)) { LastXInput = 1; }
@@ -231,5 +180,74 @@ public class Player : Character
         LastYInput = (int)y.y;
     }
 
+    private void HandleMouseHold()
+    {
+        // Mouse Hold down
+        if (Input.GetMouseButton(0))
+        {
+            if (_chargeCoroutine == null)
+            {
+                _chargeCoroutine = StartCoroutine(ChargedShot());
+            }
+        }
+        //else
+        //{
+        //    if (IsCharged == false)
+        //    {
+        //        if (_chargeCoroutine != null)
+        //        {
+        //            StopCoroutine(_chargeCoroutine);
+        //            _chargeCoroutine = null;
+        //            RegularShot();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        StartCoroutine(Element.MoveMouseTwo(transform, 0));
+        //        IsCharged = false;
+        //        _chargeCoroutine = null;
+        //    }
+        //}
+    }
+
+    private void AnimationReleaseShoot()
+    {
+        if (IsCharged == false)
+        {
+            if (_chargeCoroutine != null)
+            {
+                StopCoroutine(_chargeCoroutine);
+                _chargeCoroutine = null;
+                RegularShot();
+            }
+        }
+        else
+        {
+            StartCoroutine(Element.MoveMouseTwo(transform, 0));
+            IsCharged = false;
+            _chargeCoroutine = null;
+        }
+    }
+
+    private void RegularShot()
+    {
+        if (!IsCooldownA)
+        {
+            if (_comboCoroutine != null && _comboCount > 0) { StopCoroutine(_comboCoroutine); }
+            _comboCoroutine = StartCoroutine(InitComboTimer());
+
+            _comboCount++;
+            if (_comboCount < _comboMin) { StartCoroutine(Element.MoveMouseOne(transform, 0)); }
+            else { StartCoroutine(Element.MoveMouseTwo(transform, 0)); }
+
+            StartCoroutine(StartCooldownA());
+        }
+    }
+
+    private IEnumerator ChargedShot()
+    {
+        yield return new WaitForSeconds(ChargedShotDur);
+        IsCharged = true;
+    }
 
 }
