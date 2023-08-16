@@ -14,7 +14,10 @@ public class Platform : MonoBehaviour
         Character chr = collision.collider.gameObject.GetComponent<Character>();
         if (chr != null)
         {
-            chr.IsJumping = false;
+            if (chr.GetComponent<Rigidbody2D>().velocity.y <= 0)
+            {
+                chr.IsJumping = false;
+            }
         }
     }
 
@@ -23,7 +26,10 @@ public class Platform : MonoBehaviour
         Character chr = collision.gameObject.GetComponent<Character>();
         if (chr != null)
         {
-            chr.IsJumping = false;
+            if (chr.GetComponent<Rigidbody2D>().velocity.y <= 0)
+            {
+                chr.IsJumping = false;
+            }
         }
     }
 }

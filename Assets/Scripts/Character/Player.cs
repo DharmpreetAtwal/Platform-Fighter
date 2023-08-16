@@ -67,12 +67,8 @@ public class Player : Character
         CheckMaxVelocityX();
         if (IsMovementEnabled)
         {
-            ApplyForce(translateX * 500, 0);
-            UpdateAnimationParameters();
-            HandleMouseHold();
-
-            if (Input.GetKeyDown(KeyCode.Space) && !IsJumping)
-            { Jump(); }
+            //if (Input.GetKeyDown(KeyCode.Space) && !IsJumping)
+            //{ Jump(); }
 
             if (Input.GetMouseButtonDown(1) && !IsParryCooldown)
             {
@@ -92,6 +88,10 @@ public class Player : Character
             {
                 MainUIManager.Instance.MoveDefaultLayer(gameObject);
             }
+
+            ApplyForce(translateX * 500, 0);
+            UpdateAnimationParameters();
+            HandleMouseHold();
 
             MainUIManager.Instance.UpdateStaminaBar(Stamina, MaxStamina);
         }
@@ -210,7 +210,10 @@ public class Player : Character
         //}
     }
 
+#pragma warning disable IDE0051 // Remove unused private members
     private void AnimationReleaseShoot()
+#pragma warning restore IDE0051 // Remove unused private members
+
     {
         if (IsCharged == false)
         {
