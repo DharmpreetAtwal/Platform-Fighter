@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject guardPrefab;
 
     public int charCount = 0;
-    public float deathAxis = -20f;
+    public float deathAxis;
 
     // Awake is called before the first frame update
     void Awake()

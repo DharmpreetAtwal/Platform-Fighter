@@ -106,7 +106,7 @@ public class Player : Character
     private void ApplyJumpForce()
 #pragma warning restore IDE0051 // Remove unused private members
     {
-        ApplyForce(0, 600);
+        ApplyForce(0, 800);
     }
 
     public override void TakeDamage(float dmg)

@@ -10,7 +10,12 @@ public class BendableGround : Platform
 
     protected void OnTriggerEnter2D(Collider2D collision)
     {
-        CheckCharacterEnter(collision);
+        Character chr = collision.gameObject.GetComponent<Character>();
+        if (chr != null)
+        {
+            if (!chr.IsJumping) { CheckCharacterEnter(collision); }
+        }
+
         Earth earth = collision.gameObject.GetComponent<Earth>();
         if (earth != null)
         {
