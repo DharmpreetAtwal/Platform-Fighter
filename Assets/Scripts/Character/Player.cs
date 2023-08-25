@@ -82,7 +82,9 @@ public class Player : Character
             }
 
             if (Input.GetKeyDown(KeyCode.E))
-            { ChangeElement(); UpdateSprite(); }
+            { ChangeElement();
+                //UpdateSprite();
+            }
 
             if (Input.GetKey(KeyCode.S))
             {

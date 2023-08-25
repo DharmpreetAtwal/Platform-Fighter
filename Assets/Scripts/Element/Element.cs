@@ -132,7 +132,8 @@ public abstract class Element : MonoBehaviour
         {
             shooter.Stamina -= MoveBStaminaCost;
             Projectile proj = Projectile.ShootProjectile(shooter, _ballPrefab, x, y);
-            proj.gameObject.transform.localScale = new Vector3(2, 2);
+            proj.gameObject.transform.localScale *= 1.5f;
+            //proj.gameObject.transform.localScale = new Vector3(2, 2);
             proj.Knockback *= _moveBKnockBack;
             shooter.ApplyForce(-x * 50, -y * 50);
         }
